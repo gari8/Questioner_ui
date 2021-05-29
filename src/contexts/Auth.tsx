@@ -51,17 +51,17 @@ const AuthProvider = (props: any) => {
 	useEffect(() => {
 		const token = localStorage.getItem('brp_token')
 		if (token) {
-			Axios.get(endPoint.confirm, {
-				headers: {
-					'Access-Control-Allow-Origin': '*',
-				},
-			}).then(r => {
-				if (!user.currentUser) {
-					setCurrentUser(r.data.user)
-				} else {
-					history.push('/dashboard')
-				}
-			})
+			// Axios.get(endPoint.confirm, {
+			// 	headers: {
+			// 		'Access-Control-Allow-Origin': '*',
+			// 	},
+			// }).then(r => {
+			// 	if (!user.currentUser) {
+			// 		setCurrentUser(r.data.user)
+			// 	} else {
+			// 		history.push('/dashboard')
+			// 	}
+			// })
 		}
 	}, [history, user.currentUser]);
 
