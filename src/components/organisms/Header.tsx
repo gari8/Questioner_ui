@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {
 	Box,
 	Flex, IconButton,
@@ -8,19 +8,19 @@ import {
 	InputLeftElement, Menu, MenuButton,
 	MenuItem,
 	MenuList,
-	Spacer
+	Spacer, useDisclosure
 } from "@chakra-ui/react";
 import {
-	AddIcon,
+	AddIcon, AtSignIcon,
 	EditIcon,
-	ExternalLinkIcon,
 	HamburgerIcon,
-	RepeatIcon,
 	SearchIcon
 } from "@chakra-ui/icons";
 import Logo from "statics/logo.jpeg";
+import ProfileModal from "./ProfileModal";
 
 const Header: FC = () => {
+	const profileDisclosure = useDisclosure()
 	return (
 		<Flex
 			as={"header"}
@@ -55,20 +55,22 @@ const Header: FC = () => {
 					variant="outline"
 				/>
 				<MenuList>
-					<MenuItem icon={<AddIcon />} command="⌘T">
-						New Tab
+					<MenuItem icon={<AddIcon />} command="⌘N">
+						質問の作成
 					</MenuItem>
-					<MenuItem icon={<ExternalLinkIcon />} command="⌘N">
-						New Window
+					<MenuItem icon={<EditIcon />} command="⌘E">
+						質問の編集
 					</MenuItem>
-					<MenuItem icon={<RepeatIcon />} command="⌘⇧N">
-						Open Closed Tab
-					</MenuItem>
-					<MenuItem icon={<EditIcon />} command="⌘O">
-						Open File...
+					<MenuItem
+						icon={<AtSignIcon />}
+						command="⌘P"
+						onClick={profileDisclosure.onOpen}
+					>
+						プロフィール
 					</MenuItem>
 				</MenuList>
 			</Menu>
+			<ProfileModal profileDisclosure={profileDisclosure}/>
 		</Flex>
 	)
 }
