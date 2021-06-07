@@ -14,16 +14,16 @@ const MainFrame: FC<Props> = ({children}) => {
 			position={"relative"}
 			pb={40}
 			minHeight={"100vh"}
+			w={"full"}
+			overflow={"hidden"}
 		>
 			<Header />
 			<Flex
-				width={"full"}
+				w={"full"}
 			>
-				<Sidebar>
-
-				</Sidebar>
+				<Sidebar />
 				<Box
-					p={4}
+					w={"full"}
 				>
 					{children}
 				</Box>

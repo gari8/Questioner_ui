@@ -3,18 +3,11 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {AuthProvider} from "contexts/Auth";
 import {ChakraProvider} from "@chakra-ui/react";
 import Top from "pages/Top"
-import Login from "pages/Login"
-import Signup from "pages/Signup";
 import Dashboard from "pages/Dashboard";
 import MainFrame from "./components/templates/MainFrame";
 import {theme} from "./assets/theme/theme";
-
-export const currentUser = {
-	username: "田中太郎",
-	email: "aaa@gmail.com",
-	icon: "",
-	description: "初めまして"
-}
+import QuestionIndex from "./pages/Question";
+import QuestionShow from "./pages/Question/show";
 
 function App() {
 	return (
@@ -24,9 +17,9 @@ function App() {
 					<AuthProvider>
 						<MainFrame>
 							<Switch>
-								<Route path="/" render={() => <Top />}/>
-								<Route path="/login" render={() => <Login />}/>
-								<Route path="/signup" render={() => <Signup />}/>
+								<Route exact path="/" render={() => <Top />}/>
+								<Route exact path="/question" render={() => <QuestionIndex />}/>
+								<Route path="/question/:id" render={() => <QuestionShow />}/>
 								<Route path="/dashboard" render={() => <Dashboard />}/>
 							</Switch>
 						</MainFrame>
