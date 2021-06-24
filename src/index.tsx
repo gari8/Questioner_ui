@@ -3,10 +3,18 @@ import ReactDOM from 'react-dom';
 import './assets/css/index.css';
 import './assets/css/tailwind.css';
 import App from './App';
+import {
+	ApolloClient,
+	InMemoryCache,
+	ApolloProvider,
+} from "@apollo/client";
+import { client } from './modules/ApolloModule'
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App/>
+		<ApolloProvider client={client}>
+			<App/>
+		</ApolloProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

@@ -38,30 +38,34 @@ const Header: FC = () => {
 				onClick={() => history.push("/")}
 				cursor={"pointer"}
 			>
-				<Avatar name={"F"} fontWeight={"black"} bg={"black"}/>
+				<Avatar name={"F"} size={"md"} fontWeight={"black"} bg={"black"}/>
 				<Flex flexDirection={"column"} justify={"flex-end"}>
 					<Text fontWeight={"black"}>avs4</Text>
 				</Flex>
 			</Flex>
 			<Spacer />
-			<InputGroup
-				w={80}
-				mx={5}
-			>
-				<InputLeftElement
-					pointerEvents="none"
-					children={<SearchIcon color="gray.300" />}
-				/>
-				<Input type="text" placeholder="キーワード" />
-			</InputGroup>
+			<Flex flexDirection={'column'} justify={'center'}>
+				<InputGroup
+					w={80}
+					mx={5}
+				>
+					<InputLeftElement
+						pointerEvents="none"
+						children={<SearchIcon color="gray.300" />}
+					/>
+					<Input type="text" placeholder="キーワード" />
+				</InputGroup>
+			</Flex>
 			<Menu>
-				<MenuButton
-					as={IconButton}
-					aria-label="Options"
-					icon={<HamburgerIcon />}
-					variant="outline"
-					_focus={{ outline: 0 }}
-				/>
+				<Flex flexDirection={'column'} justify={'center'}>
+					<MenuButton
+						as={IconButton}
+						aria-label="Options"
+						icon={<HamburgerIcon />}
+						variant="outline"
+						_focus={{ outline: 0 }}
+					/>
+				</Flex>
 				{
 					currentUser ?
 						<MenuList>

@@ -22,20 +22,22 @@ const AuthContext = createContext<IAuthContext>({
 	}
 });
 
+const tokenName = "faves4_token"
+
 const AuthProvider = (props: any) => {
 	const [currentUser, setCurrentUser] = useState<Auth | null | undefined>(
 		undefined
 	);
 	const resetCurrentUser = () => {
-		localStorage.removeItem('brp_token')
+		localStorage.removeItem(tokenName)
 		setCurrentUser(undefined)
 	}
 	const makeCurrentUser = (token: string) => {
-		localStorage.setItem('brp_token', token);
+		localStorage.setItem(tokenName, token);
 		Axios.get(endPoint.confirm, {
 			headers: {
 				'Access-Control-Allow-Origin': '*',
-				'x-http-token': localStorage.getItem('brp_token')
+				'x-http-token': localStorage.getItem(tokenName)
 			},
 		}).then(r => {
 			setCurrentUser(r.data.user)
@@ -49,19 +51,17 @@ const AuthProvider = (props: any) => {
 	const history = useHistory();
 
 	useEffect(() => {
-		const token = localStorage.getItem('brp_token')
+		const token = localStorage.getItem(tokenName)
 		if (token) {
-			// Axios.get(endPoint.confirm, {
-			// 	headers: {
-			// 		'Access-Control-Allow-Origin': '*',
-			// 	},
-			// }).then(r => {
-			// 	if (!user.currentUser) {
-			// 		setCurrentUser(r.data.user)
-			// 	} else {
-			// 		history.push('/dashboard')
-			// 	}
-			// })
+			Axios.get(endPoint.confirm, {
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+				},
+			}).then(r => {
+				if (!user.currentUser) {
+					setCurrentUser(r.data.user)
+				}
+			})
 		}
 	}, [history, user.currentUser]);
 
