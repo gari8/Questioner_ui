@@ -1,0 +1,134 @@
+type User implements Node {
+    id: ID!
+    username: String!
+    icon: String
+    email: String
+    password: String
+    description: String
+    questionCount: Int
+    answerCount: Int
+    answers: [Answer!]
+    questions: [Question!]
+    created_at: String
+    updated_at: String
+}
+
+type Question implements Node {
+    id: ID!
+    title: String!
+    answerCount: Int!
+    answers: [Answer!]
+    content: String
+    termStart: String
+    termEnd: String
+    textAfterAnswered: String
+    published: Boolean!
+    enabled: Boolean!
+    answerType: String!
+    choices: [Choice!]
+    answered: Boolean!
+    user: User!
+    answerers: [User!]
+    created_at: String
+    updated_at: String
+}
+
+type Answer {
+    id: Int!
+    user: User!
+    question: Question!
+    content: String
+    created_at: String
+    updated_at: String
+}
+
+type Choice {
+    id: Int!
+    content: String!
+    value: Int!
+    question: Question!
+}
+
+interface Node {
+    id: ID!
+}
+
+input LoginInput {
+    email: String!
+    password: String!
+}
+
+type Query {
+    users(limit: Int = 12, offset: Int = 0): [User!]!
+    findUser(id: ID!): User!
+    confirmToken: User!
+    questions(limit: Int = 12, offset: Int = 0): [Question!]!
+    findQuestion(id: ID!): Question!
+    findAnswer(id: ID!): Answer!
+}
+
+input NewUser {
+    username: String!
+    password: String!
+    email: String!
+}
+
+input EditUser {
+    id: ID!
+    username: String!
+    email: String!
+    icon: Upload!
+    description: String!
+}
+
+enum AnswerType {
+    free
+    select
+    word
+    photo
+}
+
+input ChoiceInput {
+    content: String!
+}
+
+input NewQuestion {
+    userId: ID!
+    title: String!
+    content: String!
+    answerType: AnswerType!
+    termStart: String
+    termEnd: String
+    published: Boolean!
+    enabled: Boolean!
+    textAfterAnswered: String
+    choices: [ChoiceInput!]
+}
+
+input EditQuestion {
+    title: String!
+    content: String!
+    answerType: AnswerType!
+    termStart: String!
+    termEnd: String!
+    published: Boolean!
+    enabled: Boolean!
+}
+
+input NewAnswer {
+    userId: ID!
+    value: String
+    file: Upload
+}
+
+scalar Upload
+
+type Mutation {
+    createUser(input: NewUser!): User!
+    createSession(input: LoginInput): String!
+    editUser(input: EditUser!): User!
+    editPassword(id: ID!, password: String!): Boolean!
+    createQuestion(input: NewQuestion!): Question!
+    editQuestion(input: EditQuestion!): Boolean!
+    createAnswer(input: NewAnswer!): Boolean!
+}

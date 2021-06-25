@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, { FC, useContext, useState } from 'react'
 import {
 	Flex, IconButton,
 	Input,
@@ -17,13 +17,15 @@ import {
 } from "@chakra-ui/icons";
 import ModalWrapper from "./ModalWrapper";
 import { HiLogout, HiLogin, HiUserAdd } from "react-icons/hi";
-import {currentUser} from "utilities/items"
 import {ModalType} from "../../utilities/items";
 import {useHistory} from "react-router";
+import { AuthContext } from '../../contexts/Auth'
 
 const Header: FC = () => {
 	const disclosure = useDisclosure()
 	const history = useHistory()
+	const user = useContext(AuthContext)
+	const currentUser = user.currentUser
 	// switch modalType
 	const [modalType, setModalType] = useState<ModalType>(ModalType.Profile)
 	return (

@@ -4,8 +4,6 @@ import './assets/css/index.css';
 import './assets/css/tailwind.css';
 import App from './App';
 import {
-	ApolloClient,
-	InMemoryCache,
 	ApolloProvider,
 } from "@apollo/client";
 import { client } from './modules/ApolloModule'

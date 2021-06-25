@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
-import Axios, {endPoint} from "../modules/AxiosModule";
 import {useHistory} from "react-router";
+import { useQuery } from '@apollo/client'
+import { CONFIRM_TOKEN } from '../types/gqls'
 
 interface Auth {
 	id: string
@@ -22,29 +23,21 @@ const AuthContext = createContext<IAuthContext>({
 	}
 });
 
-const tokenName = "faves4_token"
+export const tokenName = "faves4_token"
 
 const AuthProvider = (props: any) => {
 	const [currentUser, setCurrentUser] = useState<Auth | null | undefined>(
 		undefined
 	);
+	const { data } = useQuery(CONFIRM_TOKEN)
+
 	const resetCurrentUser = () => {
 		localStorage.removeItem(tokenName)
 		setCurrentUser(undefined)
 	}
 	const makeCurrentUser = (token: string) => {
 		localStorage.setItem(tokenName, token);
-		Axios.get(endPoint.confirm, {
-			headers: {
-				'Access-Control-Allow-Origin': '*',
-				'x-http-token': localStorage.getItem(tokenName)
-			},
-		}).then(r => {
-			setCurrentUser(r.data.user)
-			if (user.currentUser) {
-				history.push('/dashboard')
-			}
-		})
+		// TODO: confirmSession
 	}
 
 	const user = useContext(AuthContext);
@@ -53,17 +46,10 @@ const AuthProvider = (props: any) => {
 	useEffect(() => {
 		const token = localStorage.getItem(tokenName)
 		if (token) {
-			Axios.get(endPoint.confirm, {
-				headers: {
-					'Access-Control-Allow-Origin': '*',
-				},
-			}).then(r => {
-				if (!user.currentUser) {
-					setCurrentUser(r.data.user)
-				}
-			})
+			// TODO: confirmSession
+			console.log(data)
 		}
-	}, [history, user.currentUser]);
+	}, [history, user.currentUser, data]);
 
 	return (
 		<AuthContext.Provider
