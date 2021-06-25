@@ -1,13 +1,14 @@
-import React, {FC} from "react";
+import React, { FC, useContext } from 'react'
 import {Avatar, Box, Button, Flex, Heading, Stack, Text, Tooltip, useBoolean} from "@chakra-ui/react";
 import {ArrowLeftIcon, ArrowRightIcon} from "@chakra-ui/icons";
-import {currentUser} from "utilities/items";
 import {useHistory} from "react-router";
 import NavStack from "../molecules/NavStack";
+import { AuthContext } from '../../contexts/Auth'
 
 const Sidebar: FC = () => {
 	const [isOpen, setIsClose] = useBoolean(false)
 	const history = useHistory()
+	const { currentUser } = useContext(AuthContext)
 
 	return (
 		<Box
@@ -35,7 +36,7 @@ const Sidebar: FC = () => {
 						<Flex m={2} p={2} _hover={{ bg: "gray.200", borderRadius: "5px" }} onClick={() => {
 							if (currentUser) history.push("/dashboard");
 						}}>
-							<Avatar size={"lg"} name={currentUser ? currentUser.username : ""} src={currentUser ? currentUser.icon : ""} />
+							<Avatar size={"lg"} name={currentUser ? currentUser.username : ""} src={currentUser ? currentUser.icon! : ""} />
 							<Flex ml={6} mr={2} flexDirection={"column"} justify={"center"}>
 							{
 								currentUser ?
@@ -60,8 +61,8 @@ const Sidebar: FC = () => {
 								mx={"auto"}
 								size={"sm"}
 								name={currentUser ? currentUser.username : ""}
-								src={currentUser ? currentUser.icon : ""}
-								onClick={() => history.push("/dashboard")}
+								src={currentUser ? currentUser.icon! : ""}
+								onClick={() => currentUser ? history.push("/dashboard") : history.push("/")}
 								_hover={{ opacity: 0.8 }}
 								cursor={"pointer"}
 							/>

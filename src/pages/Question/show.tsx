@@ -13,7 +13,6 @@ const QuestionShow: FC = () => {
 
 	const handleSendChoice = (choice: ChoiceInterface) => {
 		setFlag(true)
-		console.log(choice)
 	}
 
 	return (

@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC, useContext } from 'react'
 import {DisclosureInterface} from "../../types";
 import {
 	Button,
@@ -7,18 +7,22 @@ import {
 	ModalContent,
 	ModalFooter,
 	ModalHeader,
-	ModalOverlay
-} from "@chakra-ui/react";
+	ModalOverlay, useToast,
+} from '@chakra-ui/react'
+import { AuthContext } from '../../contexts/Auth'
+import { sendSuccessToast } from '../../utilities/items'
 
 interface Props {
 	disclosure: DisclosureInterface
 }
 
 const LogoutModal: FC<Props> = ({ disclosure }) => {
-
+	const user = useContext(AuthContext)
+	const logoutToast = useToast()
 	const handleLogout = () => {
-		//TODO: logout
+		user.resetCurrentUser()
 		disclosure.onClose()
+		logoutToast(sendSuccessToast)
 	}
 
 	return (

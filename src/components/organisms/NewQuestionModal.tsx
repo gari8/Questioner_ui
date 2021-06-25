@@ -1,8 +1,10 @@
-import React, {FC, useState} from "react";
-import {DisclosureInterface} from "../../types";
+import React, { FC, useContext, useState } from 'react'
+import { DisclosureInterface } from '../../types'
 import {
 	Box,
-	Button, CloseButton, Flex,
+	Button,
+	CloseButton,
+	Flex,
 	Input,
 	Modal,
 	ModalBody,
@@ -13,35 +15,52 @@ import {
 	ModalOverlay,
 	Radio,
 	RadioGroup,
-	Stack, Table, Tbody, Td,
+	Stack,
+	Switch,
+	Table,
+	Tbody,
+	Td,
 	Text,
-	Textarea, Th, Thead, Tr, useToast
-} from "@chakra-ui/react";
-import {AddIcon} from "@chakra-ui/icons";
-import {sendErrorToast} from "../../utilities/items";
+	Textarea,
+	Th,
+	Thead,
+	Tr,
+	useToast,
+} from '@chakra-ui/react'
+import { AddIcon } from '@chakra-ui/icons'
+import { sendErrorToast } from '../../utilities/items'
+import { useMutation } from '@apollo/client'
+import { CREATE_QUESTION } from '../../types/gqls'
+import { AnswerType, ChoiceInput, NewQuestion } from '../../generated/graphql'
+import { AuthContext } from '../../contexts/Auth'
+import { useHistory } from 'react-router'
 
 interface Props {
 	disclosure: DisclosureInterface
 }
 
 const answerType = {
-	Free: "free",
-	Word: "word",
-	Select: "select",
-	Photo: "photo"
+	Free: AnswerType.Free,
+	Word: AnswerType.Word,
+	Select: AnswerType.Select,
+	Photo: AnswerType.Photo
 }
 
 interface QuestionInterface {
 	title: string
 	content: string
+	textAfterAnswered: string
 }
 
 const NewQuestionModal: FC<Props> = ({ disclosure }) => {
-	const [questionForm, setQuestionForm] = useState<QuestionInterface>({title: '', content: ''})
-	const [radioValue, setRadioValue] = useState<string>("free")
+	const [questionForm, setQuestionForm] = useState<QuestionInterface>({title: '', content: '', textAfterAnswered: ''})
+	const [radioValue, setRadioValue] = useState<AnswerType>(AnswerType.Free)
 	const [inputFields, setInputFields] = useState<{index: number, value: string}[]>([])
 	const [currentInput, setCurrentInput] = useState<string>("")
 	const questionToast = useToast()
+	const { currentUser } = useContext(AuthContext)
+	const [createQuestion] = useMutation(CREATE_QUESTION)
+	const history = useHistory()
 
 	const handleFieldAdd = () => {
 		if (currentInput === "") return
@@ -61,7 +80,14 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
 		setInputFields(__inputFields)
 	}
 
+	const createList = (kvl: {index: number, value: string}[]): ChoiceInput[] => {
+		return kvl ? kvl.map(v => {
+			return { content: v.value }
+		}) : []
+	}
+
 	const handleSubmit = () => {
+		if (!currentUser) return
 		// select && inputFieldsが0の時送信できない
 		if (radioValue === answerType.Select && inputFields.length === 0) {
 			const _sendErrorToast = sendErrorToast
@@ -76,20 +102,29 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
 			return
 		}
 		// OK
-		const payload = {
+		const payload: NewQuestion = {
+			userId: currentUser?.id!,
 			title: questionForm.title,
 			content: questionForm.content,
+			textAfterAnswered: questionForm.textAfterAnswered,
 			answerType: radioValue,
-			choices: inputFields
+			choices: radioValue === AnswerType.Select ? createList(inputFields) : null,
+			enabled: true, published: true,
 		}
 		console.log(payload)
+		createQuestion({ variables: { input: payload } }).then(r => {
+			console.log(r.data)
+			history.push("/question/"+r.data.createQuestion.id!)
+		}).catch(() => {
+			questionToast(sendErrorToast)
+		}).finally(() => disclosure.onClose())
 	}
 
 	const handleReset = () => {
-		setQuestionForm({title: "", content: ""})
+		setQuestionForm({title: "", content: "", textAfterAnswered: ""})
 		setInputFields([])
 		setCurrentInput("")
-		setRadioValue("free")
+		setRadioValue(AnswerType.Free)
 		disclosure.onClose()
 	}
 
@@ -101,19 +136,40 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
 				<ModalCloseButton />
 				<ModalBody pb={6}>
 					<Text mx={3} mt={2} >タイトル</Text>
-					<Input type={"text"} w={1/3} mx={2} my={1} onChange={(e) => {
+					<Input type={"text"} w={2/3} mx={2} my={1} onChange={(e) => {
 						const _questionForm = questionForm
 						_questionForm.title = e.target.value
 						setQuestionForm(_questionForm)
 					}}/>
-					<Text mx={3} mt={2} >質問</Text>
+					<Text mx={3} mt={2} >質問内容</Text>
 					<Textarea ml={2} my={1} w={"97%"} onChange={(e) => {
 						const _questionForm = questionForm
 						_questionForm.content = e.target.value
 						setQuestionForm(_questionForm)
 					}}/>
+					<Text mx={3} mt={2}>公開設定</Text>
+					<Flex ml={2} mb={3}>
+						<Box mx={3} mt={2}>
+							<Text fontSize={'sm'}>回答可</Text>
+							<Flex mt={2} justify={'center'}>
+								<Switch size="md" defaultChecked={true}/>
+							</Flex>
+						</Box>
+						<Box mx={3} mt={2}>
+							<Text fontSize={'sm'}>一般公開</Text>
+							<Flex mt={2} justify={'center'}>
+								<Switch size="md" defaultChecked={true}/>
+							</Flex>
+						</Box>
+					</Flex>
+					<Text mx={3} mt={2} >回答後表示文</Text>
+					<Textarea ml={2} my={1} w={"97%"} onChange={(e) => {
+						const _questionForm = questionForm
+						_questionForm.textAfterAnswered = e.target.value
+						setQuestionForm(_questionForm)
+					}}/>
 					<Text mx={3} mt={2} >回答方法</Text>
-					<RadioGroup onChange={setRadioValue} value={radioValue} m={2} mb={6}>
+					<RadioGroup onChange={(e) => setRadioValue(e as AnswerType)} value={radioValue} m={2} mb={6}>
 						<Stack direction="row">
 							<Radio value={answerType.Free}>自由回答</Radio>
 							<Radio value={answerType.Select}>選択回答</Radio>

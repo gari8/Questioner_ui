@@ -7,7 +7,6 @@ export const CONFIRM_TOKEN = gql`
             username
             icon
             email
-            password
             description
             created_at
             updated_at
@@ -21,5 +20,29 @@ export const CREATE_SESSION = gql`
             email: $email
             password: $password
         })
+    }
+`
+
+export const CREATE_QUESTION = gql`
+    mutation ($input: NewQuestion!) {
+        createQuestion(input: $input) {
+            id
+            title
+            user {
+                id
+                username
+            }
+            choices {
+                content
+            }
+            answerCount
+            content
+            textAfterAnswered
+            published
+            enabled
+            answerType
+            created_at
+            updated_at
+        }
     }
 `

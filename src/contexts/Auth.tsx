@@ -1,24 +1,17 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router";
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { CONFIRM_TOKEN } from '../types/gqls'
-
-interface Auth {
-	id: string
-	name?: string
-	password?: string
-	text_id?: string
-	update_at?: string
-}
+import { User } from '../generated/graphql'
 
 interface IAuthContext {
-	currentUser: Auth | null | undefined;
+	currentUser: User | null;
 	resetCurrentUser: () => void;
 	makeCurrentUser: (token: string) => void
 }
 
 const AuthContext = createContext<IAuthContext>({
-	currentUser: undefined, resetCurrentUser: () => {
+	currentUser: null, resetCurrentUser: () => {
 	}, makeCurrentUser: (token: string) => {
 	}
 });
@@ -26,18 +19,19 @@ const AuthContext = createContext<IAuthContext>({
 export const tokenName = "faves4_token"
 
 const AuthProvider = (props: any) => {
-	const [currentUser, setCurrentUser] = useState<Auth | null | undefined>(
-		undefined
+	const [currentUser, setCurrentUser] = useState<User | null>(
+		null
 	);
-	const { data } = useQuery(CONFIRM_TOKEN)
+	const [ getConfirm, { data } ] = useLazyQuery(CONFIRM_TOKEN)
 
 	const resetCurrentUser = () => {
 		localStorage.removeItem(tokenName)
-		setCurrentUser(undefined)
+		setCurrentUser(null)
 	}
 	const makeCurrentUser = (token: string) => {
 		localStorage.setItem(tokenName, token);
-		// TODO: confirmSession
+		getConfirm()
+		if (data && data.confirmToken) setCurrentUser(data.confirmToken)
 	}
 
 	const user = useContext(AuthContext);
@@ -46,10 +40,10 @@ const AuthProvider = (props: any) => {
 	useEffect(() => {
 		const token = localStorage.getItem(tokenName)
 		if (token) {
-			// TODO: confirmSession
-			console.log(data)
+			getConfirm()
+			if (data && data.confirmToken) setCurrentUser(data.confirmToken)
 		}
-	}, [history, user.currentUser, data]);
+	}, [history, user.currentUser, data, getConfirm]);
 
 	return (
 		<AuthContext.Provider

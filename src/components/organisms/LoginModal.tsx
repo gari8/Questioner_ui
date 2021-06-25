@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import { DisclosureInterface } from '../../types'
 import {
 	Button,
@@ -9,12 +9,14 @@ import {
 	ModalContent,
 	ModalFooter,
 	ModalHeader,
-	ModalOverlay,
+	ModalOverlay, useToast,
 } from '@chakra-ui/react'
 import { InputType, validator } from '../../utilities/validations'
 import InputWithValidation from '../atoms/InputWithValidation'
 import { useMutation } from '@apollo/client'
 import { CREATE_SESSION } from '../../types/gqls'
+import { AuthContext } from '../../contexts/Auth'
+import { sendErrorToast, sendSuccessToast } from '../../utilities/items'
 
 
 interface Props {
@@ -26,12 +28,20 @@ const LoginModal: FC<Props> = ({ disclosure }) => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [login] = useMutation(CREATE_SESSION)
+	const user = useContext(AuthContext)
+	const loginToast = useToast()
 	useEffect(() => {
 		setBool(!validator(email, InputType.email) || !validator(password, InputType.password))
 	}, [bool, email, password])
 	const sendRequest = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		login({ variables: { email: email, password: password } }).then(r => console.log(r))
+		login({ variables: { email: email, password: password } }).then(r => {
+			const token = r.data.createSession
+			user.makeCurrentUser(token)
+			loginToast(sendSuccessToast)
+		}).catch(_ => {
+			loginToast(sendErrorToast)
+		}).finally(() => disclosure.onClose())
 	}
 	return (
 		<Modal isOpen={disclosure.isOpen} onClose={disclosure.onClose} >

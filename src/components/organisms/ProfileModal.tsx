@@ -12,11 +12,11 @@ import {
 	Textarea,
 	useToast
 } from "@chakra-ui/react";
-import {currentUser} from "utilities/items";
-import React, {FC, useState} from "react";
+import React, { FC, useContext, useState } from 'react'
 import {DisclosureInterface} from "../../types";
 import UploadImg from "../molecules/UploadImg";
 import {sendSuccessToast} from "../../utilities/items";
+import { AuthContext } from '../../contexts/Auth'
 
 interface Props {
 	disclosure: DisclosureInterface
@@ -30,6 +30,8 @@ interface ProfileInput {
 }
 
 const ProfileModal: FC<Props> = ({ disclosure }) => {
+	const { currentUser } = useContext(AuthContext)
+
 	const initialProfileInput = {
 		username: currentUser?.username!,
 		icon: currentUser?.icon!,
@@ -50,8 +52,8 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
 			description: profileInput.description,
 			iconFile: imageFile
 		}
-		profileToast(sendSuccessToast)
 		console.log(payload)
+		profileToast(sendSuccessToast)
 	}
 
 	const handleReset = () => {
@@ -77,13 +79,13 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
 						setProfileInput(_profileInput)
 					}}/>
 					<Text mx={3} mt={2} >メールアドレス</Text>
-					<Input type={"email"} w={2/5} defaultValue={currentUser.email} mx={2} my={1} onChange={(e) => {
+					<Input type={"email"} w={2/5} defaultValue={currentUser.email!} mx={2} my={1} onChange={(e) => {
 						const _profileInput = profileInput
 						_profileInput.email = e.target.value
 						setProfileInput(_profileInput)
 					}}/>
 					<Text mx={3} mt={2} >自己紹介</Text>
-					<Textarea defaultValue={currentUser.description} ml={2} my={1} w={"97%"} onChange={(e) => {
+					<Textarea defaultValue={currentUser.description!} ml={2} my={1} w={"97%"} onChange={(e) => {
 						const _profileInput = profileInput
 						_profileInput.description = e.target.value
 						setProfileInput(_profileInput)
