@@ -1,10 +1,19 @@
 import {FC} from "react";
 import {Box, Flex, Heading} from "@chakra-ui/react";
-import {testData} from "../../utilities/items";
 import QuestionCard from "../../components/molecules/QuestionCard";
-import {QuestionInterface} from "../../types";
+import { useQuery } from '@apollo/client'
+import { GET_QUERIES } from '../../types/gqls'
+import { Question } from '../../generated/graphql'
 
 const QuestionIndex: FC = () => {
+	const { loading, data } = useQuery(GET_QUERIES, {
+		variables: { limit: 12, offset: 0 }
+	})
+
+	if (loading) {
+		return <Box>Load</Box>
+	}
+
 	return (
 		<Box
 			p={4}
@@ -20,7 +29,8 @@ const QuestionIndex: FC = () => {
 				justify={"left"}
 			>
 				{
-					testData.map((data: QuestionInterface, index: number) => {
+					data.questions &&
+					data.questions.map((data: Question, index: number) => {
 						return <QuestionCard key={index} data={data} />
 					})
 				}

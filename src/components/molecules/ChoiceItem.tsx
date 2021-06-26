@@ -1,14 +1,14 @@
 import {Button, Flex, Progress, Text} from "@chakra-ui/react";
 import {FC} from "react";
-import {ChoiceInterface} from "../../types";
+import { Choice } from "../../generated/graphql"
 
 interface Props {
-	choice: ChoiceInterface
+	choice: Choice
 	answered: boolean
-	handleSendAnswer: (choice: ChoiceInterface) => void
+	handleSendAnswer: (choice: Choice) => void
 }
 
-const Choice: FC<Props> = ({ choice, answered, handleSendAnswer }) => {
+const ChoiceItem: FC<Props> = ({ choice, answered, handleSendAnswer }) => {
 
 	return (
 		<>
@@ -38,4 +38,4 @@ const Choice: FC<Props> = ({ choice, answered, handleSendAnswer }) => {
 	)
 }
 
-export default Choice;
+export default ChoiceItem;

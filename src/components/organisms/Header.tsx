@@ -73,7 +73,6 @@ const Header: FC = () => {
 						<MenuList>
 							<MenuItem
 								icon={<AddIcon />}
-								command="⌘N"
 								onClick={() => {
 									setModalType(ModalType.NewQuestion)
 									disclosure.onOpen()
@@ -83,13 +82,11 @@ const Header: FC = () => {
 							</MenuItem>
 							<MenuItem
 								icon={<EditIcon />}
-								command="⌘E"
 							>
 								質問の編集
 							</MenuItem>
 							<MenuItem
 								icon={<AtSignIcon />}
-								command="⌘P"
 								onClick={() => {
 									setModalType(ModalType.Profile)
 									disclosure.onOpen()

@@ -14,6 +14,45 @@ export const CONFIRM_TOKEN = gql`
     }
 `
 
+export const GET_QUERIES = gql`
+    query ($limit: Int, $offset: Int){
+        questions(limit: $limit, offset: $offset) {
+            id
+            title
+            user {
+                username
+                icon
+            }
+        }
+    }
+`
+
+export const FIND_QUERY = gql`
+    query ($id: ID!){
+        findQuestion(id: $id) {
+            id
+            title
+            textAfterAnswered
+            answerType
+            content
+            answered
+            answerCount
+            user {
+                username
+                icon
+            }
+            answers {
+                id
+                content
+            }
+            choices {
+                content
+                value
+            }
+        }
+    }
+`
+
 export const CREATE_SESSION = gql`
     mutation ($email: String!, $password: String!){
         createSession(input: {
