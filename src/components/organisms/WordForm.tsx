@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Question } from '../../generated/graphql'
 import BalloonModal from '../molecules/BalloonModal'
 import InputWithValidation from '../atoms/InputWithValidation'
@@ -6,16 +6,17 @@ import { InputType } from '../../utilities/validations'
 
 interface Props {
     question: Question
-    handleSubmit: () => void
+    handleSubmit: (value: string) => void
     answered: boolean
     isLogin: boolean
 }
 
 const WordForm: FC<Props> = ({ question, handleSubmit, answered, isLogin }) => {
+    const [value, setValue] = useState<string>("")
     return (
         <>
-            <BalloonModal title={"回答欄"} onSend={handleSubmit} answered={answered} isLogin={isLogin}>
-                <InputWithValidation fieldName={""} placeHolder={"ヒトコト回答"} type={InputType.shortText} />
+            <BalloonModal title={"回答欄"} onSend={() => handleSubmit(value)} answered={answered} isLogin={isLogin}>
+                <InputWithValidation fieldName={""} placeHolder={"ヒトコト回答"} type={InputType.shortText} onChange={(e) => setValue(e.target.value)}/>
             </BalloonModal>
         </>
     )

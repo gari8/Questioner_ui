@@ -55,7 +55,7 @@ export type EditUser = {
   id: Scalars['ID'];
   username: Scalars['String'];
   email: Scalars['String'];
-  icon: Scalars['Upload'];
+  icon?: Maybe<Scalars['Upload']>;
   description: Scalars['String'];
 };
 
@@ -115,6 +115,9 @@ export type NewAnswer = {
   userId: Scalars['ID'];
   value?: Maybe<Scalars['String']>;
   file?: Maybe<Scalars['Upload']>;
+  questionId: Scalars['ID'];
+  answerType: AnswerType;
+  choiceId?: Maybe<Scalars['Int']>;
 };
 
 export type NewQuestion = {
@@ -170,6 +173,7 @@ export type QueryQuestionsArgs = {
 
 export type QueryFindQuestionArgs = {
   id: Scalars['ID'];
+  userId: Maybe<Scalars['ID']>
 };
 
 

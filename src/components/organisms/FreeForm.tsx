@@ -1,20 +1,21 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Question } from '../../generated/graphql'
 import { Textarea } from '@chakra-ui/react'
 import BalloonModal from '../molecules/BalloonModal'
 
 interface Props {
     question: Question
-    handleSubmit: () => void
+    handleSubmit: (value: string) => void
     answered: boolean
     isLogin: boolean
 }
 
 const FreeForm: FC<Props> = ({ question, handleSubmit, answered, isLogin }) => {
+    const [value, setValue] = useState<string>("")
     return (
         <>
-            <BalloonModal title={"回答欄"} onSend={handleSubmit} answered={answered} isLogin={isLogin}>
-                <Textarea w={"100%"} h={100} bg={'white'}/>
+            <BalloonModal title={"回答欄"} onSend={() => handleSubmit(value)} answered={answered} isLogin={isLogin}>
+                <Textarea w={"100%"} h={100} bg={'white'} onChange={(e) => setValue(e.target.value)}/>
             </BalloonModal>
         </>
     )

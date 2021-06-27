@@ -63,7 +63,7 @@ type Query {
     findUser(id: ID!): User!
     confirmToken: User!
     questions(limit: Int = 12, offset: Int = 0): [Question!]!
-    findQuestion(id: ID!): Question!
+    findQuestion(id: ID!, userId: ID): Question!
     findAnswer(id: ID!): Answer!
 }
 
@@ -77,7 +77,7 @@ input EditUser {
     id: ID!
     username: String!
     email: String!
-    icon: Upload!
+    icon: Upload
     description: String!
 }
 
@@ -117,6 +117,9 @@ input EditQuestion {
 
 input NewAnswer {
     userId: ID!
+    questionId: ID!
+    answerType: AnswerType!
+    choiceId: Int
     value: String
     file: Upload
 }

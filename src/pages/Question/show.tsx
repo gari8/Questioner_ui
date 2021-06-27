@@ -1,21 +1,22 @@
 import { FC, useContext } from 'react'
 import { useLocation } from "react-router-dom"
-import { Avatar, Box, Flex, Heading, Text, Tooltip } from '@chakra-ui/react'
+import { Avatar, Box, Flex, Heading, Text } from '@chakra-ui/react'
 import { useQuery } from '@apollo/client'
 import { FIND_QUESTION } from '../../types/gqls'
 import AnswerField from '../../components/templates/AnswerField'
-import { Answer, AnswerType, User } from '../../generated/graphql'
 import { parseDate } from '../../utilities/parsers'
 import { useHistory } from 'react-router'
 import { AuthContext } from '../../contexts/Auth'
+import AnswerList from '../../components/templates/AnswerList'
 
 const QuestionShow: FC = () => {
 	const { currentUser } = useContext(AuthContext)
 	const history = useHistory()
 	const { pathname } = useLocation()
 	const qId = pathname.replace("/question/", "")
+
 	const { loading, data } = useQuery(FIND_QUESTION, {
-		variables: { id: qId }
+		variables: { id: qId, userId: currentUser?.id }
 	})
 
 	if (loading) {
@@ -25,8 +26,21 @@ const QuestionShow: FC = () => {
 	return (
 		<Box>
 			<Flex bg={"lightGreen.700"} px={14} py={8} justify={"space-between"}>
-				<Flex flexDirection={"column"} justify={"center"}>
-					<Heading as={"h2"} color={"white"}>{data.findQuestion.title}</Heading>
+				<Flex>
+					<Flex flexDirection={"column"} justify={"center"}>
+						<Heading as={"h2"} color={"white"}>{data.findQuestion.title}</Heading>
+					</Flex>
+					<Flex flexDirection={"column"} justify={"center"}>
+						<Text
+							color={"white"}
+							mx={4}
+							fontWeight={'bold'}
+							_hover={{ textDecoration: "underline" }}
+							onClick={() => {
+
+							}}
+						>［ 編集 ］</Text>
+					</Flex>
 				</Flex>
 				<Flex flexDirection={"column"} justify={"center"}>
 					<Text my={1}>回答方法:  {data.findQuestion.answerType}</Text>
@@ -47,41 +61,8 @@ const QuestionShow: FC = () => {
 				</Flex>
 			</Flex>
 			<hr />
-			<AnswerField question={data.findQuestion} isLogin={currentUser !== null} />
-			<Heading as={"h3"} fontWeight={"black"} p={4}>Answerers.</Heading>
-			{
-				data.findQuestion &&
-				data.findQuestion.answerType === AnswerType.Select ?
-					<>
-						{
-							data.findQuestion.answerers &&
-							<>
-								<Heading as={"h3"} fontWeight={"black"} p={4}>Answerers.</Heading>
-								<Box>
-									<Flex mx={"auto"} w={"50%"} wrap={"wrap-reverse"} justify={"center"} pt={6} pb={12}>
-										{
-
-											data.findQuestion.answerers!.map((answerer: User, index: number) => {
-												return <Tooltip hasArrow label={answerer.username} bg={"black"} color={"white"} key={answerer.username+index} >
-													<Avatar m={1} name={answerer.username} src={answerer.icon!} />
-												</Tooltip>
-											})
-										}
-									</Flex>
-								</Box>
-							</>
-						}
-					</>
-					:
-					<>
-						{
-							data.findQuestion.answers &&
-							data.findQuestion.answers.map((v: Answer, i: number) => {
-								return <p key={i}>{v.content}</p>
-							})
-						}
-					</>
-			}
+			<AnswerField question={data.findQuestion} isLogin={currentUser !== null} currentUser={currentUser!} />
+			<AnswerList question={data.findQuestion} />
 		</Box>
 	)
 }

@@ -32,8 +32,8 @@ export const GET_QUESTIONS = gql`
 `
 
 export const FIND_QUESTION = gql`
-    query ($id: ID!){
-        findQuestion(id: $id) {
+    query ($id: ID!, $userId: ID){
+        findQuestion(id: $id, userId: $userId) {
             id
             title
             textAfterAnswered
@@ -46,11 +46,17 @@ export const FIND_QUESTION = gql`
                 id
                 icon
             }
+            answerers {
+                username
+                id
+                icon
+            }
             answers {
                 id
                 content
             }
             choices {
+                id
                 content
                 value
             }
@@ -103,4 +109,10 @@ export const EDIT_USER = gql`
             updated_at
         }
     } 
+`
+
+export const CREATE_ANSWER = gql`
+    mutation ($input: NewAnswer!) {
+        createAnswer(input: $input)
+    }
 `
