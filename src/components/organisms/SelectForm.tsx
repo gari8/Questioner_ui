@@ -19,7 +19,7 @@ const SelectForm: FC<Props> = ({ question, handleSubmit, answered, isLogin }) =>
                     <Heading as={"h3"} fontWeight={"black"} p={4}>Choices.</Heading>
                     {
                         question.choices?.map((choice: Choice, index: number) => {
-                            return <ChoiceItem choice={choice} answered={answered && isLogin} key={choice.content+index} handleSendAnswer={handleSubmit} />
+                            return <ChoiceItem choice={choice} answerCount={question.answerCount} answered={answered || !isLogin} key={choice.content+index} handleSendAnswer={handleSubmit} />
                         })
                     }
                     <hr />

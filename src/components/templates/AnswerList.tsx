@@ -17,7 +17,6 @@ const AnswerList: FC<Props> = ({ question }) => {
                         {
                             question.answerers &&
                             <>
-                                <Heading as={"h3"} fontWeight={"black"} p={4}>Answerers.</Heading>
                                 <Box>
                                     <Flex mx={"auto"} w={"50%"} wrap={"wrap-reverse"} justify={"center"} pt={6} pb={12}>
                                         {

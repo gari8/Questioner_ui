@@ -31,15 +31,18 @@ const QuestionShow: FC = () => {
 						<Heading as={"h2"} color={"white"}>{data.findQuestion.title}</Heading>
 					</Flex>
 					<Flex flexDirection={"column"} justify={"center"}>
-						<Text
-							color={"white"}
-							mx={4}
-							fontWeight={'bold'}
-							_hover={{ textDecoration: "underline" }}
-							onClick={() => {
+						{
+							currentUser != null &&
+							<Text
+								color={"white"}
+								mx={4}
+								fontWeight={'bold'}
+								_hover={{ textDecoration: "underline" }}
+								onClick={() => {
 
-							}}
-						>［ 編集 ］</Text>
+								}}
+							>［ 編集 ］</Text>
+						}
 					</Flex>
 				</Flex>
 				<Flex flexDirection={"column"} justify={"center"}>
