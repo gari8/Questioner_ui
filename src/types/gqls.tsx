@@ -14,11 +14,15 @@ export const CONFIRM_TOKEN = gql`
     }
 `
 
-export const GET_QUERIES = gql`
+export const GET_QUESTIONS = gql`
     query ($limit: Int, $offset: Int){
         questions(limit: $limit, offset: $offset) {
             id
             title
+            answerType
+            answerCount
+            termStart
+            termEnd
             user {
                 username
                 icon
@@ -27,7 +31,7 @@ export const GET_QUERIES = gql`
     }
 `
 
-export const FIND_QUERY = gql`
+export const FIND_QUESTION = gql`
     query ($id: ID!){
         findQuestion(id: $id) {
             id
@@ -39,6 +43,7 @@ export const FIND_QUERY = gql`
             answerCount
             user {
                 username
+                id
                 icon
             }
             answers {
@@ -84,4 +89,18 @@ export const CREATE_QUESTION = gql`
             updated_at
         }
     }
+`
+
+export const EDIT_USER = gql`
+    mutation ($input: EditUser!) {
+        editUser(input: $input) {
+            id
+            username
+            icon
+            email
+            description
+            created_at
+            updated_at
+        }
+    } 
 `

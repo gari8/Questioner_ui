@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import {
 	AddIcon, AtSignIcon,
-	EditIcon,
 	HamburgerIcon,
 	SearchIcon
 } from "@chakra-ui/icons";
@@ -79,11 +78,6 @@ const Header: FC = () => {
 								}}
 							>
 								質問の作成
-							</MenuItem>
-							<MenuItem
-								icon={<EditIcon />}
-							>
-								質問の編集
 							</MenuItem>
 							<MenuItem
 								icon={<AtSignIcon />}

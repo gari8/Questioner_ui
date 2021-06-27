@@ -111,7 +111,6 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
 			choices: radioValue === AnswerType.Select ? createList(inputFields) : null,
 			enabled: true, published: true,
 		}
-		console.log(payload)
 		createQuestion({ variables: { input: payload } }).then(r => {
 			console.log(r.data)
 			history.push("/question/"+r.data.createQuestion.id!)

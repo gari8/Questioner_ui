@@ -1,29 +1,36 @@
 import { FC, useEffect, useState } from 'react'
 import { AnswerType, Choice, Question } from '../../generated/graphql'
 import SelectForm from '../organisms/SelectForm'
+import FreeForm from '../organisms/FreeForm'
+import WordForm from '../organisms/WordForm'
+import PhotoForm from '../organisms/PhotoForm'
 
 interface Props {
     question: Question
+    isLogin: boolean
 }
 
-const AnswerField: FC<Props> = ({ question}) => {
+const AnswerField: FC<Props> = ({ question, isLogin}) => {
     const handleSendChoice = (choice: Choice) => {
-        setFlag(true)
+        setAnswered(true)
     }
-    const [flag, setFlag] = useState<boolean>(false)
+    const handleSendForm = () => {
+        setAnswered(true)
+    }
+    const [answered, setAnswered] = useState<boolean>(false)
     useEffect(() => {
-        if (question) setFlag(question.answered!)
+        if (question) setAnswered(question.answered!)
     }, [question])
 
     switch (question.answerType) {
         case AnswerType.Free:
-            return <></>
+            return <FreeForm question={question} handleSubmit={handleSendForm} answered={answered} isLogin={isLogin}/>
         case AnswerType.Select:
-            return <SelectForm question={question} handleSubmit={handleSendChoice} flag={flag} />
+            return <SelectForm question={question} handleSubmit={handleSendChoice} answered={answered} isLogin={isLogin}/>
         case AnswerType.Word:
-            return <></>
+            return <WordForm question={question} handleSubmit={handleSendForm} answered={answered} isLogin={isLogin}/>
         case AnswerType.Photo:
-            return <></>
+            return <PhotoForm question={question} handleSubmit={handleSendForm} answered={answered} isLogin={isLogin}/>
         default:
             return <></>
     }

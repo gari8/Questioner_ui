@@ -2,11 +2,11 @@ import {FC} from "react";
 import {Box, Flex, Heading} from "@chakra-ui/react";
 import QuestionCard from "../../components/molecules/QuestionCard";
 import { useQuery } from '@apollo/client'
-import { GET_QUERIES } from '../../types/gqls'
+import { GET_QUESTIONS } from '../../types/gqls'
 import { Question } from '../../generated/graphql'
 
 const QuestionIndex: FC = () => {
-	const { loading, data } = useQuery(GET_QUERIES, {
+	const { loading, data } = useQuery(GET_QUESTIONS, {
 		variables: { limit: 12, offset: 0 }
 	})
 

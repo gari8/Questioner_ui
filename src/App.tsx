@@ -8,6 +8,8 @@ import MainFrame from "./components/templates/MainFrame";
 import {theme} from "./assets/theme/theme";
 import QuestionIndex from "./pages/Question";
 import QuestionShow from "./pages/Question/show";
+import UserShow from './pages/User/show'
+import UserIndex from './pages/User'
 
 function App() {
 	return (
@@ -20,6 +22,8 @@ function App() {
 								<Route exact path="/" render={() => <Top />}/>
 								<Route exact path="/question" render={() => <QuestionIndex />}/>
 								<Route path="/question/:id" render={() => <QuestionShow />}/>
+								<Route exact path="/user" render={() => <UserIndex />}/>
+								<Route path="/user/:id" render={() => <UserShow />}/>
 								<Route path="/dashboard" render={() => <Dashboard />}/>
 							</Switch>
 						</MainFrame>

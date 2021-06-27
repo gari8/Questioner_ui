@@ -12,11 +12,14 @@ import {
 	Textarea,
 	useToast
 } from "@chakra-ui/react";
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import {DisclosureInterface} from "../../types";
 import UploadImg from "../molecules/UploadImg";
-import {sendSuccessToast} from "../../utilities/items";
-import { AuthContext } from '../../contexts/Auth'
+import { sendErrorToast, sendSuccessToast } from '../../utilities/items'
+import { AuthContext, tokenName } from '../../contexts/Auth'
+import { EditUser, Scalars } from '../../generated/graphql'
+import { useMutation } from '@apollo/client'
+import { EDIT_USER } from '../../types/gqls'
 
 interface Props {
 	disclosure: DisclosureInterface
@@ -25,12 +28,12 @@ interface Props {
 interface ProfileInput {
 	username: string
 	email: string
-	icon: string
+	icon: Scalars['Upload']
 	description: string
 }
 
 const ProfileModal: FC<Props> = ({ disclosure }) => {
-	const { currentUser } = useContext(AuthContext)
+	const { currentUser, makeCurrentUser } = useContext(AuthContext)
 
 	const initialProfileInput = {
 		username: currentUser?.username!,
@@ -38,22 +41,38 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
 		email: currentUser?.email!,
 		description: currentUser?.description!
 	}
+	const emptyFile = new File([], "")
 	const profileToast = useToast()
-	const [imageFile, setImageFile] = useState<File>()
+	const [imageFile, setImageFile] = useState<File>(emptyFile)
 	const [profileInput, setProfileInput] = useState<ProfileInput>(initialProfileInput)
+	const [editUser] = useMutation(EDIT_USER)
 
-
+	useEffect(() => {
+		setProfileInput(initialProfileInput)
+		// eslint-disable-next-line
+	}, [])
 
 	const handleSave = () => {
 		// TODO: Request
-		const payload = {
-			username: profileInput.username,
-			email: profileInput.email,
-			description: profileInput.description,
-			iconFile: imageFile
+		const payload: EditUser = {
+			id: currentUser?.id!,
+			username: profileInput.username ? profileInput.username : currentUser?.username!,
+			email: profileInput.email ? profileInput.username : currentUser?.email!,
+			description: profileInput.description ? profileInput.description: currentUser?.description!,
+			icon: imageFile as Scalars["Upload"]
 		}
 		console.log(payload)
-		profileToast(sendSuccessToast)
+		editUser({
+			variables: { input: payload }
+		}).then(_ => {
+			const token = localStorage.getItem(tokenName)
+			if (token) {
+				makeCurrentUser(token)
+				profileToast(sendSuccessToast)
+			}
+		}).catch(() => {
+			profileToast(sendErrorToast)
+		})
 	}
 
 	const handleReset = () => {
