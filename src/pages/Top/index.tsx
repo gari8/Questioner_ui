@@ -6,7 +6,7 @@ const Top: FC = () => {
 	return (
 		<>
 			<Link to={"/question"}>Question</Link>
-			<Text>{process.env.DEPLOY_ENV ? process.env.DEPLOY_ENV : "local"}</Text>
+			<Text>{process.env.VERCEL_ENV ? process.env.VERCEL_ENV : "local"}</Text>
 		</>
 	)
 }

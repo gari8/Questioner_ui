@@ -7,9 +7,9 @@ const developmentURL = "https://faves4-stg.herokuapp.com/query"
 const localURL = "http://localhost:8080/query"
 
 const handleUri = (): string => {
-    if (process.env.DEPLOY_ENV === "production") {
+    if (process.env.VERCEL_ENV === "production") {
         return productionURL
-    } else if (process.env.DEPLOY_ENV === "development") {
+    } else if (process.env.VERCEL_ENV === "development") {
         return developmentURL
     } else {
         return localURL
