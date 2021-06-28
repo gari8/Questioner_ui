@@ -15,10 +15,11 @@ interface Props {
     question: Question
     isLogin: boolean
     currentUser?: User
+    refetch: () => Promise<any>
 }
 
-const AnswerField: FC<Props> = ({ question, isLogin, currentUser}) => {
-    const [newAnswer] = useMutation(CREATE_ANSWER)
+const AnswerField: FC<Props> = ({ question, isLogin, currentUser, refetch}) => {
+    const [newAnswer, { error, loading }] = useMutation(CREATE_ANSWER)
     const [answered, setAnswered] = useState<boolean>(false)
     const { pathname } = useLocation()
     const qId = pathname.replace("/question/", "")
@@ -27,7 +28,15 @@ const AnswerField: FC<Props> = ({ question, isLogin, currentUser}) => {
 
     useEffect(() => {
         if (question) setAnswered(question.answered!)
-    }, [question, setAnswered])
+    }, [question, setAnswered, refetch])
+
+    if (loading) {
+        return <>Loaing</>
+    }
+
+    if (error) {
+        return <>{error}</>
+    }
 
     const handleSendChoice = (choice: Choice) => {
         if (!currentUser) return
@@ -41,6 +50,7 @@ const AnswerField: FC<Props> = ({ question, isLogin, currentUser}) => {
             if (r.data.createAnswer) {
                 setAnswered(true)
                 history.push(pathname)
+                refetch()
                 answerToast(sendSuccessToast)
             } else {
                 answerToast(sendErrorToast)
@@ -61,6 +71,7 @@ const AnswerField: FC<Props> = ({ question, isLogin, currentUser}) => {
             if (r.data.createAnswer) {
                 setAnswered(true)
                 history.push(pathname)
+                refetch()
                 answerToast(sendSuccessToast)
             } else {
                 answerToast(sendErrorToast)

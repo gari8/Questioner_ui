@@ -15,12 +15,16 @@ const QuestionShow: FC = () => {
 	const { pathname } = useLocation()
 	const qId = pathname.replace("/question/", "")
 
-	const { loading, data } = useQuery(FIND_QUESTION, {
+	const { loading, error, data, refetch } = useQuery(FIND_QUESTION, {
 		variables: { id: qId, userId: currentUser?.id }
 	})
 
 	if (loading) {
 		return <Box>Loading</Box>
+	}
+
+	if (error) {
+		return <>{error}</>
 	}
 
 	return (
@@ -64,7 +68,7 @@ const QuestionShow: FC = () => {
 				</Flex>
 			</Flex>
 			<hr />
-			<AnswerField question={data.findQuestion} isLogin={currentUser !== null} currentUser={currentUser!} />
+			<AnswerField question={data.findQuestion} refetch={refetch} isLogin={currentUser !== null} currentUser={currentUser!} />
 			<AnswerList question={data.findQuestion} />
 		</Box>
 	)

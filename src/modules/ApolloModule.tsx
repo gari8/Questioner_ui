@@ -2,12 +2,22 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { tokenName } from '../contexts/Auth'
 
-const isDev = true
-const productionURL = ""
-const developmentURL = "http://localhost:8080/query"
+const productionURL = "https://faves4.herokuapp.com/query"
+const developmentURL = "https://faves4-stg.herokuapp.com/query"
+const localURL = "http://localhost:8080/query"
+
+const handleUri = (): string => {
+    if (process.env.DEPLOY_ENV === "production") {
+        return productionURL
+    } else if (process.env.DEPLOY_ENV === "development") {
+        return developmentURL
+    } else {
+        return localURL
+    }
+}
 
 const httpLink = createHttpLink({
-    uri: isDev ? developmentURL : productionURL,
+    uri: handleUri(),
     credentials: 'same-origin'
 });
 
