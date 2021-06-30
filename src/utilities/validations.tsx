@@ -2,7 +2,8 @@ export enum InputType {
     email,
     password,
     shortText,
-    longText
+    longText,
+    name,
 }
 
 export const validator = (value: string, type?: InputType): boolean => {
@@ -15,6 +16,8 @@ export const validator = (value: string, type?: InputType): boolean => {
             return inRange(value, 0, 20)
         case InputType.longText:
             return inRange(value, 0, 256)
+        case InputType.name:
+            return inRange(value, 1, 30)
         default:
             return inRange(value) && isHWChar(value)
     }

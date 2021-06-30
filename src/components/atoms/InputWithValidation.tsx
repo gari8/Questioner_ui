@@ -21,6 +21,8 @@ const validationText = (type: InputType): string => {
             return "ヒント: 20文字以内です"
         case InputType.longText:
             return "ヒント: 256文字以内です"
+        case InputType.name:
+            return "ヒント: 1文字以上30文字以内です"
         default:
             return "不明なエラーです"
     }

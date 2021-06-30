@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ChoiceItem: FC<Props> = ({ choice, answered, handleSendAnswer, answerCount }) => {
-	const percentage = (choice.value / answerCount) * 100
+	const percentage = Math.round((choice.value / answerCount) * 100 * 100) / 100
 	return (
 		<>
 			<Flex my={4} mx={20} justify={"space-between"}>

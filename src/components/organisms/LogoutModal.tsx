@@ -17,10 +17,10 @@ interface Props {
 }
 
 const LogoutModal: FC<Props> = ({ disclosure }) => {
-	const user = useContext(AuthContext)
+	const { resetCurrentUser } = useContext(AuthContext)
 	const logoutToast = useToast()
 	const handleLogout = () => {
-		user.resetCurrentUser()
+		resetCurrentUser()
 		disclosure.onClose()
 		logoutToast(sendSuccessToast)
 	}

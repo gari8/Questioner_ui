@@ -112,7 +112,6 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
 			enabled: true, published: true,
 		}
 		createQuestion({ variables: { input: payload } }).then(r => {
-			console.log(r.data)
 			history.push("/question/"+r.data.createQuestion.id!)
 		}).catch(() => {
 			questionToast(sendErrorToast)

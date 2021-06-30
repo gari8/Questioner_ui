@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react'
 import { useLocation } from "react-router-dom"
-import { Avatar, Box, Flex, Heading, Text } from '@chakra-ui/react'
+import { Avatar, Box, Flex, Heading, Text, Tooltip } from '@chakra-ui/react'
 import { useQuery } from '@apollo/client'
 import { FIND_QUESTION } from '../../types/gqls'
 import AnswerField from '../../components/templates/AnswerField'
@@ -8,6 +8,7 @@ import { parseDate } from '../../utilities/parsers'
 import { useHistory } from 'react-router'
 import { AuthContext } from '../../contexts/Auth'
 import AnswerList from '../../components/templates/AnswerList'
+import { SettingsIcon } from '@chakra-ui/icons'
 
 const QuestionShow: FC = () => {
 	const { currentUser } = useContext(AuthContext)
@@ -16,7 +17,7 @@ const QuestionShow: FC = () => {
 	const qId = pathname.replace("/question/", "")
 
 	const { loading, error, data, refetch } = useQuery(FIND_QUESTION, {
-		variables: { id: qId, userId: currentUser?.id }
+		variables: { id: qId, userId: currentUser?.id! }
 	})
 
 	if (loading) {
@@ -37,15 +38,20 @@ const QuestionShow: FC = () => {
 					<Flex flexDirection={"column"} justify={"center"}>
 						{
 							currentUser != null &&
-							<Text
-								color={"white"}
-								mx={4}
-								fontWeight={'bold'}
-								_hover={{ textDecoration: "underline" }}
-								onClick={() => {
+							currentUser.id === data.findQuestion.user.id &&
+								<Tooltip hasArrow label={"設定"} placement={'top'}>
+									<SettingsIcon
+										fontSize={'2xl'}
+										color={"gray.300"}
+										mx={4}
+										fontWeight={'bold'}
+										cursor={'pointer'}
+										_hover={{ textDecoration: "underline", color: "gray.100" }}
+										onClick={() => {
 
-								}}
-							>［ 編集 ］</Text>
+										}}
+									/>
+								</Tooltip>
 						}
 					</Flex>
 				</Flex>
@@ -68,7 +74,7 @@ const QuestionShow: FC = () => {
 				</Flex>
 			</Flex>
 			<hr />
-			<AnswerField question={data.findQuestion} refetch={refetch} isLogin={currentUser !== null} currentUser={currentUser!} />
+			<AnswerField question={data.findQuestion} refetch={refetch} currentUser={currentUser!} />
 			<AnswerList question={data.findQuestion} />
 		</Box>
 	)

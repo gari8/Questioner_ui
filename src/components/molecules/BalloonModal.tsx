@@ -1,16 +1,22 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { Box, Flex, IconButton, Text, useBoolean } from '@chakra-ui/react'
 import { ChatIcon, TriangleDownIcon } from '@chakra-ui/icons'
 import { IoIosSend } from 'react-icons/io';
+import { getMyAnswer } from '../../utilities/parsers'
+import { AuthContext } from '../../contexts/Auth'
+import { Question } from '../../generated/graphql'
 interface Props {
     title: string
     onSend: () => void
     answered: boolean
     isLogin: boolean
+    question: Question
 }
 
-const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin }) => {
+const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, question }) => {
     const [flag, setFlag] = useBoolean(false)
+    const { currentUser } = useContext(AuthContext)
+    const myAnswer = getMyAnswer(currentUser?.id!, question.answers!)
     return (
         <Flex position={'fixed'} bottom={180} right={8} w={"60%"} justify={'space-between'}>
             <Flex flexDirection={'column'} justify={'flex-end'} w={"90%"}>
@@ -26,7 +32,7 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin })
                                             {
                                                 answered ?
                                                     <Text wordBreak={'break-word'} px={2}>
-                                                        すごいです
+                                                        { myAnswer ? myAnswer.content : "" }
                                                     </Text>
                                                     : children
                                             }

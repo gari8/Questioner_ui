@@ -54,6 +54,9 @@ export const FIND_QUESTION = gql`
             answers {
                 id
                 content
+                user {
+                    id
+                }
             }
             choices {
                 id
@@ -70,6 +73,21 @@ export const CREATE_SESSION = gql`
             email: $email
             password: $password
         })
+    }
+`
+
+export const CREATE_USER = gql`
+    mutation ($input: NewUser!) {
+        createUser(input: $input) {
+            id
+            username
+            icon
+            created_at
+            updated_at
+            description
+            email
+            password
+        }
     }
 `
 

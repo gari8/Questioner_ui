@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import {useHistory} from "react-router";
 import { useLazyQuery } from '@apollo/client'
 import { CONFIRM_TOKEN } from '../types/gqls'
@@ -32,9 +32,8 @@ const AuthProvider = (props: any) => {
 		localStorage.setItem(tokenName, token);
 		getConfirm()
 		if (data && data.confirmToken) setCurrentUser(data.confirmToken)
+		console.log(currentUser)
 	}
-
-	const user = useContext(AuthContext);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -43,7 +42,7 @@ const AuthProvider = (props: any) => {
 			getConfirm()
 			if (data && data.confirmToken) setCurrentUser(data.confirmToken)
 		}
-	}, [history, user.currentUser, data, getConfirm]);
+	}, [history, currentUser, data, getConfirm]);
 
 	return (
 		<AuthContext.Provider

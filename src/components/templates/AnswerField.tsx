@@ -4,27 +4,24 @@ import SelectForm from '../organisms/SelectForm'
 import FreeForm from '../organisms/FreeForm'
 import WordForm from '../organisms/WordForm'
 import PhotoForm from '../organisms/PhotoForm'
-import { useMutation } from '@apollo/client'
+import { ApolloQueryResult, useMutation } from '@apollo/client'
 import { CREATE_ANSWER } from '../../types/gqls'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
-import { sendErrorToast, sendSuccessToast } from '../../utilities/items'
-import { useHistory } from 'react-router'
+import { sendErrorToast } from '../../utilities/items'
 
 interface Props {
     question: Question
-    isLogin: boolean
     currentUser?: User
-    refetch: () => Promise<any>
+    refetch: <TData, TVariables>(variables?: Partial<TVariables>) => Promise<ApolloQueryResult<TData>>
 }
 
-const AnswerField: FC<Props> = ({ question, isLogin, currentUser, refetch}) => {
+const AnswerField: FC<Props> = ({ question, currentUser, refetch}) => {
     const [newAnswer, { error, loading }] = useMutation(CREATE_ANSWER)
-    const [answered, setAnswered] = useState<boolean>(false)
+    const [answered, setAnswered] = useState<boolean>(true)
     const { pathname } = useLocation()
     const qId = pathname.replace("/question/", "")
     const answerToast = useToast()
-    const history = useHistory()
 
     useEffect(() => {
         if (question) setAnswered(question.answered!)
@@ -38,6 +35,18 @@ const AnswerField: FC<Props> = ({ question, isLogin, currentUser, refetch}) => {
         return <>{error}</>
     }
 
+    const handleToast = () => {
+        if (question.textAfterAnswered && question.textAfterAnswered !== "") {
+            answerToast({
+                position: 'top',
+                title: "出題者からのメッセージ",
+                description: question.textAfterAnswered,
+                status: 'info',
+                isClosable: true,
+            })
+        }
+    }
+
     const handleSendChoice = (choice: Choice) => {
         if (!currentUser) return
         const payload: NewAnswer = {
@@ -49,9 +58,8 @@ const AnswerField: FC<Props> = ({ question, isLogin, currentUser, refetch}) => {
         newAnswer({ variables: { input: payload } }).then(r => {
             if (r.data.createAnswer) {
                 setAnswered(true)
-                history.push(pathname)
-                refetch()
-                answerToast(sendSuccessToast)
+                handleToast()
+                refetch<any, {id: string, userId: string}>({ id: qId, userId: currentUser.id })
             } else {
                 answerToast(sendErrorToast)
             }
@@ -70,9 +78,8 @@ const AnswerField: FC<Props> = ({ question, isLogin, currentUser, refetch}) => {
         newAnswer({ variables: { input: payload } }).then(r => {
             if (r.data.createAnswer) {
                 setAnswered(true)
-                history.push(pathname)
-                refetch()
-                answerToast(sendSuccessToast)
+                handleToast()
+                refetch<any, {id: string, userId: string}>({ id: qId, userId: currentUser.id })
             } else {
                 answerToast(sendErrorToast)
             }
@@ -88,13 +95,13 @@ const AnswerField: FC<Props> = ({ question, isLogin, currentUser, refetch}) => {
 
     switch (question.answerType) {
         case AnswerType.Free:
-            return <FreeForm question={question} handleSubmit={handleSendForm} answered={answered} isLogin={isLogin}/>
+            return <FreeForm question={question} handleSubmit={handleSendForm} answered={answered} isLogin={currentUser !== null}/>
         case AnswerType.Select:
-            return <SelectForm question={question} handleSubmit={handleSendChoice} answered={answered} isLogin={isLogin}/>
+            return <SelectForm question={question} handleSubmit={handleSendChoice} answered={answered} isLogin={currentUser !== null}/>
         case AnswerType.Word:
-            return <WordForm question={question} handleSubmit={handleSendForm} answered={answered} isLogin={isLogin}/>
+            return <WordForm question={question} handleSubmit={handleSendForm} answered={answered} isLogin={currentUser !== null}/>
         case AnswerType.Photo:
-            return <PhotoForm question={question} handleSubmit={handleSendPhoto} answered={answered} isLogin={isLogin}/>
+            return <PhotoForm question={question} handleSubmit={handleSendPhoto} answered={answered} isLogin={currentUser !== null}/>
         default:
             return <></>
     }
