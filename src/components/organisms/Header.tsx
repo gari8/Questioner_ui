@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/icons";
 import ModalWrapper from "./ModalWrapper";
 import { HiLogout, HiLogin, HiUserAdd } from "react-icons/hi";
+import { FaKey } from "react-icons/fa";
 import {ModalType} from "../../utilities/items";
 import {useHistory} from "react-router";
 import { AuthContext } from '../../contexts/Auth'
@@ -87,6 +88,15 @@ const Header: FC = () => {
 								}}
 							>
 								プロフィール編集
+							</MenuItem>
+							<MenuItem
+								icon={<FaKey />}
+								onClick={() => {
+									setModalType(ModalType.EditPassword)
+									disclosure.onOpen()
+								}}
+							>
+								パスワード編集
 							</MenuItem>
 							<MenuItem
 								icon={<Icon as={HiLogout}/>}

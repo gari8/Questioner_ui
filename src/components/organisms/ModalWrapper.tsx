@@ -1,11 +1,12 @@
-import {FC} from "react";
-import {DisclosureInterface} from "../../types";
-import {ModalType} from "../../utilities/items";
-import ProfileModal from "./ProfileModal";
-import LogoutModal from "./LogoutModal";
-import LoginModal from "./LoginModal";
-import SignupModal from "./SignupModal";
-import NewQuestionModal from "./NewQuestionModal";
+import { FC } from 'react'
+import { DisclosureInterface } from '../../types'
+import { ModalType } from '../../utilities/items'
+import ProfileModal from './ProfileModal'
+import LogoutModal from './LogoutModal'
+import LoginModal from './LoginModal'
+import SignupModal from './SignupModal'
+import NewQuestionModal from './NewQuestionModal'
+import EditPasswordModal from './EditPasswordModal'
 
 interface Props {
 	modalType: ModalType
@@ -24,6 +25,8 @@ const ModalWrapper: FC<Props> = ({ modalType, disclosure }) => {
 			return <LoginModal disclosure={disclosure} />
 		case ModalType.Signup:
 			return <SignupModal disclosure={disclosure} />
+		case ModalType.EditPassword:
+			return <EditPasswordModal disclosure={disclosure} />
 		default:
 			return <></>
 	}

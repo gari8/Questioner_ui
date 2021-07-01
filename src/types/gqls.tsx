@@ -54,8 +54,11 @@ export const FIND_QUESTION = gql`
             answers {
                 id
                 content
+                created_at
                 user {
                     id
+                    username
+                    icon
                 }
             }
             choices {

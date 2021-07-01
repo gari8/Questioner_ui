@@ -53,8 +53,14 @@ const SignupModal: FC<Props> = ({ disclosure }) => {
 			signupToast(sendErrorToast)
 		}).finally(disclosure.onClose)
 	}
+	const onClose = () => {
+		setUsername("")
+		setEmail("")
+		setPassword("")
+		disclosure.onClose()
+	}
 	return (
-		<Modal isOpen={disclosure.isOpen} onClose={disclosure.onClose} >
+		<Modal isOpen={disclosure.isOpen} onClose={onClose} >
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>サインアップ</ModalHeader>
@@ -68,7 +74,7 @@ const SignupModal: FC<Props> = ({ disclosure }) => {
 					<Button colorScheme="blue" mr={3} onClick={handleSignup}>
 						保存
 					</Button>
-					<Button onClick={disclosure.onClose}>戻る</Button>
+					<Button onClick={onClose}>戻る</Button>
 				</ModalFooter>
 			</ModalContent>
 		</Modal>

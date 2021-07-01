@@ -226,7 +226,7 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
 				</ModalBody>
 				<ModalFooter>
 					<Button colorScheme="blue" mr={3} onClick={handleSubmit}>
-						作成
+						保存
 					</Button>
 					<Button onClick={handleReset}>戻る</Button>
 				</ModalFooter>

@@ -18,7 +18,7 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, q
     const { currentUser } = useContext(AuthContext)
     const myAnswer = getMyAnswer(currentUser?.id!, question.answers!)
     return (
-        <Flex position={'fixed'} bottom={180} right={8} w={"60%"} justify={'space-between'}>
+        <Flex position={'fixed'} bottom={180} right={8} w={flag ? "60%" : "100px"} justify={'space-between'} zIndex={10}>
             <Flex flexDirection={'column'} justify={'flex-end'} w={"90%"}>
                 {
                     flag &&

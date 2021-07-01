@@ -61,7 +61,6 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
 			description: profileInput.description ? profileInput.description: currentUser?.description!,
 			icon: imageFile as Scalars["Upload"]
 		}
-		console.log(payload)
 		editUser({
 			variables: { input: payload }
 		}).then(_ => {

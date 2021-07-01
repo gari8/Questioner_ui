@@ -43,8 +43,13 @@ const LoginModal: FC<Props> = ({ disclosure }) => {
 			loginToast(sendErrorToast)
 		}).finally(() => disclosure.onClose())
 	}
+	const onClose = () => {
+		setPassword("")
+		setEmail("")
+		disclosure.onClose()
+	}
 	return (
-		<Modal isOpen={disclosure.isOpen} onClose={disclosure.onClose} >
+		<Modal isOpen={disclosure.isOpen} onClose={onClose} >
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>ログイン</ModalHeader>
@@ -69,7 +74,7 @@ const LoginModal: FC<Props> = ({ disclosure }) => {
 					<Button disabled={bool} colorScheme="blue" mr={3} onClick={sendRequest}>
 						ログイン
 					</Button>
-					<Button onClick={disclosure.onClose}>戻る</Button>
+					<Button onClick={onClose}>戻る</Button>
 				</ModalFooter>
 			</ModalContent>
 		</Modal>

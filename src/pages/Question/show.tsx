@@ -75,7 +75,7 @@ const QuestionShow: FC = () => {
 			</Flex>
 			<hr />
 			<AnswerField question={data.findQuestion} refetch={refetch} currentUser={currentUser!} />
-			<AnswerList question={data.findQuestion} />
+			<AnswerList answers={data.findQuestion.answers} answerers={data.findQuestion.answerers} answerType={data.findQuestion.answerType} />
 		</Box>
 	)
 }

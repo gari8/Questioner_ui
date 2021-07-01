@@ -1,26 +1,28 @@
 import { FC } from 'react'
 import { Avatar, Box, Flex, Heading, Tooltip } from '@chakra-ui/react'
-import { Answer, AnswerType, Question, User } from '../../generated/graphql'
+import { Answer, AnswerType, User } from '../../generated/graphql'
+import AnswerCard from '../molecules/AnswerCard'
 
 interface Props {
-    question: Question
+    answerType: AnswerType
+    answers?: Answer[]
+    answerers?: User[]
 }
 
-const AnswerList: FC<Props> = ({ question }) => {
+const AnswerList: FC<Props> = ({ answers, answerers, answerType }) => {
     return (
         <>
             <Heading as={"h3"} fontWeight={"black"} p={4}>Answerers.</Heading>
             {
-                question &&
-                question.answerType === AnswerType.Select ?
+                answerType === AnswerType.Select ?
                     <>
                         {
-                            question.answerers &&
+                            answerers &&
                             <>
                                 <Box>
                                     <Flex mx={"auto"} w={"50%"} wrap={"wrap-reverse"} justify={"center"} pt={6} pb={12}>
                                         {
-                                            question.answerers!.map((answerer: User, index: number) => {
+                                            answerers!.map((answerer: User, index: number) => {
                                                 return <Tooltip hasArrow label={answerer.username} bg={"black"} color={"white"} key={answerer.username+index} >
                                                     <Avatar m={1} name={answerer.username} src={answerer.icon!} />
                                                 </Tooltip>
@@ -34,9 +36,9 @@ const AnswerList: FC<Props> = ({ question }) => {
                     :
                     <>
                         {
-                            question.answers &&
-                            question.answers.map((v: Answer, i: number) => {
-                                return <p key={i}>{v.content}</p>
+                            answers &&
+                            answers.map((v: Answer, i: number) => {
+                                return <AnswerCard answer={v} answerType={answerType} key={i}/>
                             })
                         }
                     </>

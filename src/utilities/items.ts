@@ -6,6 +6,7 @@ export enum ModalType {
     Logout,
     Login,
     Signup,
+    EditPassword,
 }
 
 export const sendSuccessToast: UseToastOptions = {
