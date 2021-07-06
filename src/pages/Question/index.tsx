@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client'
 import { GET_QUESTIONS } from '../../types/gqls'
 import { Question } from '../../generated/graphql'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
+import Loading from '../../components/templates/Loading'
 
 const QuestionIndex: FC = () => {
 	const [config, setConfig] = useState({limit: 12, offset: 0})
@@ -13,7 +14,7 @@ const QuestionIndex: FC = () => {
 	})
 
 	if (loading) {
-		return <>Loading...</>
+		return <Loading />
 	}
 
 	if (error) {

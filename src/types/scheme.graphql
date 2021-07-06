@@ -47,6 +47,7 @@ type Choice {
     content: String!
     value: Int!
     question: Question!
+    answered: Boolean!
 }
 
 interface Node {
@@ -64,6 +65,7 @@ type Query {
     confirmToken: User!
     questions(limit: Int = 12, offset: Int = 0): [Question!]!
     findQuestion(id: ID!, userId: ID): Question!
+    answers(limit: Int = 12, offset: Int = 0): [Answer!]!
     findAnswer(id: ID!): Answer!
 }
 
@@ -128,9 +130,9 @@ scalar Upload
 
 type Mutation {
     createUser(input: NewUser!): User!
-    createSession(input: LoginInput): String!
+    createSession(input: LoginInput!): String!
     editUser(input: EditUser!): User!
-    editPassword(id: ID!, password: String!): Boolean!
+    editPassword(id: ID!, newPassword: String!, currentPassword: String!): Boolean!
     createQuestion(input: NewQuestion!): Question!
     editQuestion(input: EditQuestion!): Boolean!
     createAnswer(input: NewAnswer!): Boolean!

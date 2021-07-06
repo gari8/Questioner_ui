@@ -34,7 +34,7 @@ const Sidebar: FC = () => {
 				isOpen ?
 					<Box w={"280px"}>
 						<Flex m={2} p={2} _hover={{ bg: "gray.200", borderRadius: "5px" }} onClick={() => {
-							if (currentUser) history.push("/dashboard");
+							if (currentUser) history.push("/user/"+currentUser.id);
 						}}>
 							<Avatar size={"lg"} name={currentUser ? currentUser.username : ""} src={currentUser ? currentUser.icon! : ""} />
 							<Flex ml={6} mr={2} flexDirection={"column"} justify={"center"}>
@@ -62,7 +62,7 @@ const Sidebar: FC = () => {
 								size={"sm"}
 								name={currentUser ? currentUser.username : ""}
 								src={currentUser ? currentUser.icon! : ""}
-								onClick={() => currentUser ? history.push("/dashboard") : history.push("/")}
+								onClick={() => currentUser ? history.push("/user/"+currentUser.id) : history.push("/")}
 								_hover={{ opacity: 0.8 }}
 								cursor={"pointer"}
 							/>
@@ -78,20 +78,6 @@ const Sidebar: FC = () => {
 								_hover={{ opacity: 0.8 }}
 								cursor={"pointer"}
 								bg={"blue.500"}
-							/>
-						</Tooltip>
-						<hr style={{ width: "90%", margin: "6px auto" }}/>
-						<Tooltip hasArrow label={"user"} bg={"black"} color={"white"}>
-							<Avatar
-								display={"block"}
-								mx={"auto"}
-								size={"sm"}
-								name={"User"}
-								onClick={() => history.push("/user")}
-								_hover={{ opacity: 0.8 }}
-								cursor={"pointer"}
-								color={"white"}
-								bg={"red.500"}
 							/>
 						</Tooltip>
 						<hr style={{ width: "90%", margin: "6px auto" }}/>

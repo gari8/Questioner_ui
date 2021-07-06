@@ -35,6 +35,7 @@ export type Choice = {
   content: Scalars['String'];
   value: Scalars['Int'];
   question: Question;
+  answered: Scalars['Boolean'];
 };
 
 export type ChoiceInput = {
@@ -93,7 +94,8 @@ export type MutationEditUserArgs = {
 
 export type MutationEditPasswordArgs = {
   id: Scalars['ID'];
-  password: Scalars['String'];
+  newPassword: Scalars['String'];
+  currentPassword: Scalars['String'];
 };
 
 

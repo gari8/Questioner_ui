@@ -9,6 +9,7 @@ import { useHistory } from 'react-router'
 import { AuthContext } from '../../contexts/Auth'
 import AnswerList from '../../components/templates/AnswerList'
 import { SettingsIcon } from '@chakra-ui/icons'
+import Loading from '../../components/templates/Loading'
 
 const QuestionShow: FC = () => {
 	const { currentUser } = useContext(AuthContext)
@@ -21,7 +22,7 @@ const QuestionShow: FC = () => {
 	})
 
 	if (loading) {
-		return <Box>Loading</Box>
+		return <Loading />
 	}
 
 	if (error) {

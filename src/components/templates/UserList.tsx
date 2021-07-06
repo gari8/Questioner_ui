@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-const UserIndex: FC = () => {
+const UserList: FC = () => {
     return (
         <></>
     )
 }
 
-export default UserIndex;
+export default UserList;

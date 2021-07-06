@@ -14,6 +14,18 @@ export const CONFIRM_TOKEN = gql`
     }
 `
 
+export const GET_USERS = gql`
+    query($limit: Int, $offset: Int) {
+        users(limit: $limit, offset: $offset) {
+            id
+            username
+            icon
+            email
+            description
+        }
+    }
+`
+
 export const GET_QUESTIONS = gql`
     query ($limit: Int, $offset: Int){
         questions(limit: $limit, offset: $offset) {
@@ -132,8 +144,38 @@ export const EDIT_USER = gql`
     } 
 `
 
+export const EDIT_PASSWORD = gql`
+    mutation ($id: ID!, $newPassword: String!, $currentPassword: String!) {
+        editPassword(id: $id, newPassword: $newPassword, currentPassword: $currentPassword)
+    }
+`
+
 export const CREATE_ANSWER = gql`
     mutation ($input: NewAnswer!) {
         createAnswer(input: $input)
+    }
+`
+
+export const DRAW_TOP = gql`
+    query ($uLimit: Int, $uOffset: Int, $qLimit: Int, $qOffset: Int) {
+        users(limit: $uLimit, offset: $uOffset) {
+            id
+            username
+            icon
+            email
+            description
+        }
+        questions(limit: $qLimit, offset: $qOffset) {
+            id
+            title
+            answerType
+            answerCount
+            termStart
+            termEnd
+            user {
+                username
+                icon
+            }
+        }
     }
 `

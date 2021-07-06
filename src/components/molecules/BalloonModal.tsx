@@ -22,7 +22,7 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, q
             <Flex flexDirection={'column'} justify={'flex-end'} w={"90%"}>
                 {
                     flag &&
-                    <Box w={'full'} borderRadius={"10px"} bg={'gray.200'} p={4}>
+                    <Box w={'full'} borderRadius={"10px"} bg={'gray.200'} p={4} boxShadow={'outline'}>
                         <Text fontSize={'lg'} w={'full'} px={2} mb={2} borderRadius={"2px"} fontWeight={'bold'}>{isLogin ? (answered ? "自分の回答" : title) : "ログインしてください"}</Text>
                         <Box overflow={'scroll'} maxH={"400px"} >
                             <Flex flexDirection={'column'} justify={'flex-end'} w={'full'} p={1}>

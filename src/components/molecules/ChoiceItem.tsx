@@ -1,5 +1,5 @@
 import {Button, Flex, Progress, Text} from "@chakra-ui/react";
-import {FC} from "react";
+import { FC } from 'react'
 import { Choice } from "../../generated/graphql"
 
 interface Props {
