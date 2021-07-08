@@ -31,10 +31,10 @@ const QuestionShow: FC = () => {
 
     return (
         <Box>
-            <Flex bg={'lightGreen.700'} px={14} py={8} justify={'space-between'}>
+            <Flex bg={'lightGreen.700'} px={[3, 14]} py={[4, 8]} justify={'space-between'}>
                 <Flex>
                     <Flex flexDirection={'column'} justify={'center'}>
-                        <Heading as={'h2'} color={'white'}>{data.findQuestion.title}</Heading>
+                        <Heading as={'h2'} color={'white'} fontSize={['12px', '2xl']}>{data.findQuestion.title}</Heading>
                     </Flex>
                     <Flex flexDirection={'column'} justify={'center'}>
                         {
@@ -62,7 +62,7 @@ const QuestionShow: FC = () => {
                     <Text my={1}>回答数: {data.findQuestion.answerCount}</Text>
                 </Flex>
             </Flex>
-            <Flex py={4} pl={6} pr={20}>
+            <Flex py={4} pl={[2, 6]} pr={[2, 20]} flexDirection={['column', 'row']}>
                 <Flex flexDirection={'column'} justify={'center'} px={4} py={8} borderRadius={'md'}
                       _hover={{ bg: 'gray.200' }} onClick={() => history.push('/user/' + data.findQuestion.user.id)}>
                     <Avatar size={'lg'} display={'block'} mx={'auto'} name={data.findQuestion.user.username}
@@ -73,8 +73,8 @@ const QuestionShow: FC = () => {
                 <Flex flexDirection={'column'} justify={'start'} mx={6}>
                     <Text fontSize={'2xl'} fontWeight={'black'}>Q.</Text>
                 </Flex>
-                <Flex flexDirection={'column'} justify={'center'} py={6}>
-                    <Text wordBreak={'break-word'}>{data.findQuestion.content}</Text>
+                <Flex flexDirection={'column'} justify={'center'} py={6} px={[6, 0]}>
+                    <Text fontSize={['sm', 'lg']} wordBreak={'break-word'}>{data.findQuestion.content}</Text>
                 </Flex>
             </Flex>
             <hr />

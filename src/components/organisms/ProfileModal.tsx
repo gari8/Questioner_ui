@@ -35,6 +35,8 @@ interface ProfileInput {
 const ProfileModal: FC<Props> = ({ disclosure }) => {
     const { currentUser, makeCurrentUser } = useContext(AuthContext)
 
+    if (!currentUser) disclosure.onClose()
+
     const initialProfileInput = {
         username: currentUser?.username!,
         icon: currentUser?.icon!,
@@ -59,7 +61,6 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
             username: profileInput.username ? profileInput.username : currentUser?.username!,
             email: profileInput.email ? profileInput.username : currentUser?.email!,
             description: profileInput.description ? profileInput.description : currentUser?.description!,
-            icon: imageFile as Scalars['Upload'],
         }
         editUser({
             variables: { input: payload },
@@ -80,7 +81,7 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
         disclosure.onClose()
     }
 
-    if (!currentUser) return <></>
+    console.log(imageFile)
 
     return (
         <Modal size={'2xl'} closeOnOverlayClick={false} isOpen={disclosure.isOpen} onClose={handleReset}>
@@ -92,19 +93,19 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
                     <UploadImg src={initialProfileInput.icon} alt={initialProfileInput.username}
                                setFile={setImageFile} />
                     <Text mx={3} mt={2}>お名前</Text>
-                    <Input type={'text'} w={1 / 3} defaultValue={currentUser.username} mx={2} my={1} onChange={(e) => {
+                    <Input type={'text'} w={1 / 3} defaultValue={currentUser?.username} mx={2} my={1} onChange={(e) => {
                         const _profileInput = profileInput
                         _profileInput.username = e.target.value
                         setProfileInput(_profileInput)
                     }} />
                     <Text mx={3} mt={2}>メールアドレス</Text>
-                    <Input type={'email'} w={2 / 5} defaultValue={currentUser.email!} mx={2} my={1} onChange={(e) => {
+                    <Input type={'email'} w={2 / 5} defaultValue={currentUser?.email!} mx={2} my={1} onChange={(e) => {
                         const _profileInput = profileInput
                         _profileInput.email = e.target.value
                         setProfileInput(_profileInput)
                     }} />
                     <Text mx={3} mt={2}>自己紹介</Text>
-                    <Textarea defaultValue={currentUser.description!} ml={2} my={1} w={'97%'} onChange={(e) => {
+                    <Textarea defaultValue={currentUser?.description!} ml={2} my={1} w={'97%'} onChange={(e) => {
                         const _profileInput = profileInput
                         _profileInput.description = e.target.value
                         setProfileInput(_profileInput)

@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import PaginationBar from '../molecules/PaginationBar'
 import { Question } from '../../generated/graphql'
 import QuestionCard from '../molecules/QuestionCard'
-import { Flex } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 import { useQuery } from '@apollo/client'
 import { GET_QUESTIONS } from '../../types/gqls'
 import { PaginateConfigInterface } from '../../types'
@@ -42,14 +42,14 @@ const QuestionList: FC = () => {
 
     return (
         <>
-            <Flex wrap={'wrap'} justify={'center'}>
+            <SimpleGrid columns={[2, 2, 3, 4]} spacing={2}>
                 {
                     data.questions.questions &&
                     data.questions.questions.map((q: Question, index: number) => {
                         return <QuestionCard data={q} key={q.id + index.toString()} />
                     })
                 }
-            </Flex>
+            </SimpleGrid>
             {
                 data.questions &&
                 data.questions.questions.length !== 0 &&

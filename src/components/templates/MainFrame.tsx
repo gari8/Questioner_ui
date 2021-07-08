@@ -12,7 +12,7 @@ const MainFrame: FC<Props> = ({ children }) => {
     return (
         <Box
             position={'relative'}
-            pb={40}
+            pb={20}
             minHeight={'100vh'}
             w={'full'}
             overflow={'hidden'}

@@ -6,7 +6,7 @@ import Loading from './Loading'
 import { useQuery } from '@apollo/client'
 import { GET_USERS } from '../../types/gqls'
 import UserCard from '../molecules/UserCard'
-import { Flex } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 
 const UserList: FC = () => {
     const initConfig = { limit: 4, offset: 0 }
@@ -42,14 +42,14 @@ const UserList: FC = () => {
 
     return (
         <>
-            <Flex wrap={'wrap'} justify={'center'}>
+            <SimpleGrid columns={[2, 2, 3, 4]} spacing={[0, 2]}>
                 {
                     data.users &&
                     data.users.users.map((user: User, index: number) => {
                         return <UserCard user={user} key={user.id + index.toString()} />
                     })
                 }
-            </Flex>
+            </SimpleGrid>
             {
                 data.users &&
                 data.users.users.length !== 0 &&

@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Box, Flex, Heading} from '@chakra-ui/react'
+import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import QuestionCard from '../../components/molecules/QuestionCard'
 import { useQuery } from '@apollo/client'
 import { GET_QUESTIONS } from '../../types/gqls'
@@ -52,9 +52,8 @@ const QuestionIndex: FC = () => {
             >
                 公開中の質問
             </Heading>
-            <Flex
-                flexWrap={'wrap'}
-                justify={'left'}
+            <SimpleGrid
+                columns={[1, 2, 3, 4]} spacing={2}
             >
                 {
                     data.questions &&
@@ -62,7 +61,7 @@ const QuestionIndex: FC = () => {
                         return <QuestionCard key={index} data={data} />
                     })
                 }
-            </Flex>
+            </SimpleGrid>
             {
                 data.questions && data.questions.questions.length !== 0 &&
                 <PaginationBar config={config} handlePrev={handlePrevPage} handleNext={handleNextPage} length={data.questions.length} />

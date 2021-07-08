@@ -15,6 +15,7 @@ const Sidebar: FC = () => {
             minHeight={'calc(100vh - 216px)'}
             borderRight={'1px'}
             borderColor={'gray.200'}
+            display={['none', 'block']}
         >
             <Flex justify={'flex-end'} bg={'gray.100'} w={'full'}>
                 <Button

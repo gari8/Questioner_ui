@@ -9,6 +9,7 @@ import { CREATE_ANSWER } from '../../types/gqls'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import { sendErrorToast } from '../../utilities/items'
+import Loading from './Loading'
 
 interface Props {
     question: Question
@@ -28,7 +29,7 @@ const AnswerField: FC<Props> = ({ question, currentUser, refetch }) => {
     }, [question, setAnswered, refetch])
 
     if (loading) {
-        return <>Loaing</>
+        return <Loading />
     }
 
     if (error) {

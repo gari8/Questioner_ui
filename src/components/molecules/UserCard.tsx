@@ -14,16 +14,16 @@ const UserCard: FC<Props> = ({ user }) => {
         <Box
             borderRadius={'md'}
             bg={'red.300'}
-            mx={4}
-            my={4}
-            w={'280px'}
+            mx={'auto'}
+            my={[2, 4]}
+            w={['140px', '280px']}
             boxShadow={'lg'}
             position={'relative'}
-            pb={10}
+            pb={[0, 10]}
             _hover={{ boxShadow: 'none' }}
             onClick={() => history.push("/user/"+user.id)}
         >
-            <Flex m={10}>
+            <Flex m={[4, 10]} transform={['scale(0.5) translate(-50%, -50%)', 'scale(1.0)']}>
                 <Flex flexDirection={'column'} justify={'center'}>
                     <Tooltip hasArrow label={user.username}>
                         <Avatar name={user.username} src={user.icon!}/>
@@ -51,10 +51,10 @@ const UserCard: FC<Props> = ({ user }) => {
                     </Flex>
                 </Box>
             </Flex>
-            <Flex position={'absolute'} bottom={'0'} w={'full'} h={10} bg={'gray.50'} borderWidth={'2px'} borderColor={'red.300'} borderRadius={'0 0 5px 5px'} pt={4}>
+            <Flex position={'absolute'} bottom={'0'} w={'full'} h={[5, 10]} bg={'gray.50'} borderWidth={'2px'} borderColor={'red.300'} borderRadius={'0 0 5px 5px'} pt={[1, 4]}>
                 {
                     barcode.map((_, index: number) => {
-                        return <Box h={index % 4 !== 0 ? 5 : 2} mt={index % 4 !== 0 ? 0 : 3} w={'7px'} bg={'red.300'} mx={2} key={index}> </Box>
+                        return <Box h={[index % 4 !== 0 ? 3 : 1, index % 4 !== 0 ? 5 : 2]} mt={[index % 4 !== 0 ? 0 : 2, index % 4 !== 0 ? 0 : 3]} w={['4px', '7px']} bg={'red.300'} mx={[1,2]} key={index}> </Box>
                     })
                 }
             </Flex>

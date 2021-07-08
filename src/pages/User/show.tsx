@@ -1,5 +1,5 @@
 import { FC} from 'react'
-import { Avatar, Box, Flex, Text } from '@chakra-ui/react'
+import { Avatar, Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { FIND_USER } from '../../types/gqls'
@@ -39,10 +39,20 @@ const UserShow: FC = () => {
                     <Flex justify={'center'} py={6}>
                         <Text fontSize={'sm'} fontWeight={'light'}>{data.findUser.description}</Text>
                     </Flex>
+                    <Grid templateColumns={'repeat(2, 1fr)'}>
+                        <GridItem colSpan={2} h={20} bg={'yellow.400'}>
+                            aaaaa
+                        </GridItem>
+                        <GridItem colStart={3} colEnd={6} h={20} bg={'yellow.100'}>
+                            bbbbbb
+                        </GridItem>
+                        {/*<Box w={'100%'} bg={'yellow'} h={20}></Box>*/}
+                        {/*<Box w={'100%'} bg={'yellowgreen'}></Box>*/}
+                    </Grid>
                 </>
             }
         </Box>
     )
 }
 
-export default UserShow
+export default UserShow;

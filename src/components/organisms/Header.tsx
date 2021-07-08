@@ -1,9 +1,7 @@
 import React, { FC, useContext, useState } from 'react'
 import {
     Flex, IconButton,
-    Input,
-    InputGroup,
-    InputLeftElement, Menu, MenuButton,
+    Menu, MenuButton,
     MenuItem,
     MenuList,
     Spacer, useDisclosure,
@@ -12,7 +10,6 @@ import {
 import {
     AddIcon, AtSignIcon,
     HamburgerIcon,
-    SearchIcon,
 } from '@chakra-ui/icons'
 import ModalWrapper from './ModalWrapper'
 import { HiLogout, HiLogin, HiUserAdd } from 'react-icons/hi'
@@ -34,7 +31,7 @@ const Header: FC = () => {
             width={'full'}
             shadow={'sm'}
             py={2}
-            px={8}
+            px={[2, 8]}
         >
             <Flex
                 onClick={() => history.push('/')}
@@ -46,18 +43,6 @@ const Header: FC = () => {
                 </Flex>
             </Flex>
             <Spacer />
-            <Flex flexDirection={'column'} justify={'center'}>
-                <InputGroup
-                    w={80}
-                    mx={5}
-                >
-                    <InputLeftElement
-                        pointerEvents='none'
-                        children={<SearchIcon color='gray.300' />}
-                    />
-                    <Input type='text' placeholder='キーワード' />
-                </InputGroup>
-            </Flex>
             <Menu>
                 <Flex flexDirection={'column'} justify={'center'}>
                     <MenuButton

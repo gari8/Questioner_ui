@@ -8,7 +8,7 @@ const Footer: FC = () => {
             borderTop={'1px'}
             borderColor={'gray.200'}
             width={'full'}
-            height={40}
+            height={20}
             position={'absolute'}
             bottom={0}
         >

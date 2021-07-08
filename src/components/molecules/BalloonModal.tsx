@@ -19,9 +19,9 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, q
     const { currentUser } = useContext(AuthContext)
     const myAnswer = getMyAnswer(currentUser?.id!, question.answers!)
     return (
-        <Flex position={'fixed'} bottom={180} right={8} w={flag ? '60%' : '100px'} justify={'space-between'}
-              zIndex={10}>
-            <Flex flexDirection={'column'} justify={'flex-end'} w={'90%'}>
+        <Flex position={'fixed'} bottom={[24, 180]} right={[2, 8]} w={['80%', '80%', '80%', flag ? '60%' : '100px']} justify={'space-between'}
+              zIndex={10} flexDirection={['column', 'row']}>
+            <Flex flexDirection={'column'} justify={'flex-end'} w={['100%', '90%']}>
                 {
                     flag &&
                     <Box w={'full'} borderRadius={'10px'} bg={'gray.200'} p={4} boxShadow={'outline'}>
@@ -52,7 +52,7 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, q
                     </Box>
                 }
             </Flex>
-            <Flex flexDirection={'column'} justify={'flex-end'}>
+            <Flex flexDirection={['row', 'column']} justify={'flex-end'}>
                 {
                     flag ?
                         <>
@@ -64,7 +64,8 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, q
                                         icon={<IoIosSend />}
                                         aria-label={'Add Chat'}
                                         size={'lg'}
-                                        mb={4}
+                                        mt={[2, 4]}
+                                        ml={[2, 0]}
                                         colorScheme={'blue'}
                                         borderRadius={'full'}
                                         _focus={{ outline: 'none' }}
@@ -78,6 +79,8 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, q
                                 icon={<TriangleDownIcon />}
                                 aria-label={'Add Chat'}
                                 size={'lg'}
+                                mt={[2, 4]}
+                                ml={[2, 0]}
                                 colorScheme={'red'}
                                 borderRadius={'full'}
                                 _focus={{ outline: 'none' }}
@@ -89,6 +92,8 @@ const BalloonModal: FC<Props> = ({ title, onSend, answered, children, isLogin, q
                             icon={<ChatIcon />}
                             aria-label={'Add Chat'}
                             size={'lg'}
+                            mt={[2, 4]}
+                            ml={[2, 0]}
                             colorScheme={'blue'}
                             borderRadius={'full'}
                             _focus={{ outline: 'none' }}
