@@ -86,20 +86,20 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
     return (
         <Modal size={'2xl'} closeOnOverlayClick={false} isOpen={disclosure.isOpen} onClose={handleReset}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>プロフィール</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
                     <UploadImg src={initialProfileInput.icon} alt={initialProfileInput.username}
                                setFile={setImageFile} />
                     <Text mx={3} mt={2}>お名前</Text>
-                    <Input type={'text'} w={1 / 3} defaultValue={currentUser?.username} mx={2} my={1} onChange={(e) => {
+                    <Input type={'text'} w={['97%', 1 / 3]} defaultValue={currentUser?.username} mx={2} my={1} onChange={(e) => {
                         const _profileInput = profileInput
                         _profileInput.username = e.target.value
                         setProfileInput(_profileInput)
                     }} />
                     <Text mx={3} mt={2}>メールアドレス</Text>
-                    <Input type={'email'} w={2 / 5} defaultValue={currentUser?.email!} mx={2} my={1} onChange={(e) => {
+                    <Input type={'email'} w={['97%', 2 / 5]} defaultValue={currentUser?.email!} mx={2} my={1} onChange={(e) => {
                         const _profileInput = profileInput
                         _profileInput.email = e.target.value
                         setProfileInput(_profileInput)

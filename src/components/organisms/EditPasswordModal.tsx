@@ -59,7 +59,7 @@ const EditPasswordModal: FC<Props> = ({ disclosure }) => {
     return (
         <Modal isOpen={disclosure.isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>パスワード編集</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>

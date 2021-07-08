@@ -10,7 +10,7 @@ const Footer: FC = () => {
             width={'full'}
             height={20}
             position={'absolute'}
-            bottom={0}
+            bottom={[20, 0]}
         >
             <Box>
             </Box>

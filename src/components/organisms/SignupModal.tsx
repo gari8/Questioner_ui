@@ -62,7 +62,7 @@ const SignupModal: FC<Props> = ({ disclosure }) => {
     return (
         <Modal isOpen={disclosure.isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>サインアップ</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>

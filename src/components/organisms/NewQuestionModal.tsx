@@ -15,7 +15,6 @@ import {
     ModalOverlay,
     Radio,
     RadioGroup,
-    Stack,
     Switch,
     Table,
     Tbody,
@@ -134,7 +133,7 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
         <Modal scrollBehavior={'outside'} closeOnOverlayClick={false} size={'2xl'} isOpen={disclosure.isOpen}
                onClose={handleReset}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>質問の作成</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
@@ -173,19 +172,23 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
                     }} />
                     <Text mx={3} mt={2}>回答方法</Text>
                     <RadioGroup onChange={(e) => setRadioValue(e as AnswerType)} value={radioValue} m={2} mb={6}>
-                        <Stack direction='row'>
-                            <Radio value={answerType.Free}>自由回答</Radio>
-                            <Radio value={answerType.Select}>選択回答</Radio>
-                            <Radio value={answerType.Word}>ヒトコト回答</Radio>
-                            <Radio value={answerType.Photo}>写真で回答</Radio>
-                        </Stack>
+                        <Flex justify={['space-around', 'normal']} ml={[0, 4]} mt={[0, 4]}>
+                            <Flex flexDirection={['column', 'row']}>
+                                <Radio mx={1} value={answerType.Free}>自由回答</Radio>
+                                <Radio mx={1} value={answerType.Select}>選択回答</Radio>
+                            </Flex>
+                            <Flex flexDirection={['column', 'row']}>
+                                <Radio mx={1} value={answerType.Word}>ヒトコト回答</Radio>
+                                <Radio mx={1} value={answerType.Photo}>写真で回答</Radio>
+                            </Flex>
+                        </Flex>
                     </RadioGroup>
                     {/* select */}
                     {
                         radioValue === answerType.Select &&
                         <>
                             <Text mx={3} mt={2}>選択肢</Text>
-                            <Box m={4}>
+                            <Box m={[1, 4]}>
                                 <Table variant='simple'>
                                     <Thead>
                                         <Tr>

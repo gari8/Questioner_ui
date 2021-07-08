@@ -28,7 +28,7 @@ const LogoutModal: FC<Props> = ({ disclosure }) => {
     return (
         <Modal isOpen={disclosure.isOpen} onClose={disclosure.onClose}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>ログアウトしますか？</ModalHeader>
                 <ModalCloseButton />
                 <ModalFooter>
