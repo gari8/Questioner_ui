@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react'
-import { Avatar, Flex, Spacer, Tooltip } from '@chakra-ui/react'
+import { Avatar, Flex, Tooltip } from '@chakra-ui/react'
 import { AuthContext } from '../../contexts/Auth'
 import { useHistory } from 'react-router'
 
