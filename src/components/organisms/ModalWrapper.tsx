@@ -9,27 +9,27 @@ import NewQuestionModal from './NewQuestionModal'
 import EditPasswordModal from './EditPasswordModal'
 
 interface Props {
-	modalType: ModalType
-	disclosure: DisclosureInterface
+    modalType: ModalType
+    disclosure: DisclosureInterface
 }
 
 const ModalWrapper: FC<Props> = ({ modalType, disclosure }) => {
-	switch (modalType) {
-		case ModalType.NewQuestion:
-			return <NewQuestionModal disclosure={disclosure} />
-		case ModalType.Profile:
-			return <ProfileModal disclosure={disclosure}/>
-		case ModalType.Logout:
-			return <LogoutModal disclosure={disclosure} />
-		case ModalType.Login:
-			return <LoginModal disclosure={disclosure} />
-		case ModalType.Signup:
-			return <SignupModal disclosure={disclosure} />
-		case ModalType.EditPassword:
-			return <EditPasswordModal disclosure={disclosure} />
-		default:
-			return <></>
-	}
+    switch (modalType) {
+        case ModalType.NewQuestion:
+            return <NewQuestionModal disclosure={disclosure} />
+        case ModalType.Profile:
+            return <ProfileModal disclosure={disclosure} />
+        case ModalType.Logout:
+            return <LogoutModal disclosure={disclosure} />
+        case ModalType.Login:
+            return <LoginModal disclosure={disclosure} />
+        case ModalType.Signup:
+            return <SignupModal disclosure={disclosure} />
+        case ModalType.EditPassword:
+            return <EditPasswordModal disclosure={disclosure} />
+        default:
+            return <></>
+    }
 }
 
-export default ModalWrapper;
+export default ModalWrapper

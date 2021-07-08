@@ -11,11 +11,12 @@ interface Props {
 }
 
 const FreeForm: FC<Props> = ({ question, handleSubmit, answered, isLogin }) => {
-    const [value, setValue] = useState<string>("")
+    const [value, setValue] = useState<string>('')
     return (
         <>
-            <BalloonModal title={"回答欄"} onSend={() => handleSubmit(value)} answered={answered} isLogin={isLogin} question={question}>
-                <Textarea w={"100%"} h={100} bg={'white'} onChange={(e) => setValue(e.target.value)}/>
+            <BalloonModal title={'回答欄'} onSend={() => handleSubmit(value)} answered={answered} isLogin={isLogin}
+                          question={question}>
+                <Textarea w={'100%'} h={100} bg={'white'} onChange={(e) => setValue(e.target.value)} />
             </BalloonModal>
         </>
     )

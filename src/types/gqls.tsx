@@ -17,11 +17,16 @@ export const CONFIRM_TOKEN = gql`
 export const GET_USERS = gql`
     query($limit: Int, $offset: Int) {
         users(limit: $limit, offset: $offset) {
-            id
-            username
-            icon
-            email
-            description
+            length
+            users {
+                id
+                username
+                icon
+                email
+                description
+                questionCount
+                answerCount
+            }
         }
     }
 `
@@ -29,15 +34,40 @@ export const GET_USERS = gql`
 export const GET_QUESTIONS = gql`
     query ($limit: Int, $offset: Int){
         questions(limit: $limit, offset: $offset) {
+            length
+            questions {
+                id
+                title
+                answerType
+                answerCount
+                termStart
+                termEnd
+                user {
+                    username
+                    icon
+                }
+            }
+        }
+    }
+`
+
+export const FIND_USER = gql`
+    query ($id: ID!) {
+        findUser(id: $id) {
             id
-            title
-            answerType
+            username
+            icon
+            created_at
+            updated_at
+            description
+            email
+            password
             answerCount
-            termStart
-            termEnd
-            user {
-                username
-                icon
+            questionCount
+            questions {
+                id
+                title
+                content
             }
         }
     }
@@ -141,7 +171,7 @@ export const EDIT_USER = gql`
             created_at
             updated_at
         }
-    } 
+    }
 `
 
 export const EDIT_PASSWORD = gql`
@@ -153,29 +183,5 @@ export const EDIT_PASSWORD = gql`
 export const CREATE_ANSWER = gql`
     mutation ($input: NewAnswer!) {
         createAnswer(input: $input)
-    }
-`
-
-export const DRAW_TOP = gql`
-    query ($uLimit: Int, $uOffset: Int, $qLimit: Int, $qOffset: Int) {
-        users(limit: $uLimit, offset: $uOffset) {
-            id
-            username
-            icon
-            email
-            description
-        }
-        questions(limit: $qLimit, offset: $qOffset) {
-            id
-            title
-            answerType
-            answerCount
-            termStart
-            termEnd
-            user {
-                username
-                icon
-            }
-        }
     }
 `

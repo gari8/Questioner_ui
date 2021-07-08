@@ -24,8 +24,8 @@ interface Props {
 const EditPasswordModal: FC<Props> = ({ disclosure }) => {
     const { currentUser } = useContext(AuthContext)
     const [bool, setBool] = useState<boolean>(true)
-    const [currentPassword, setCurrentPassword] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
+    const [currentPassword, setCurrentPassword] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     const editPasswordToast = useToast()
     const [editPassword] = useMutation(EDIT_PASSWORD)
     useEffect(() => {
@@ -33,8 +33,8 @@ const EditPasswordModal: FC<Props> = ({ disclosure }) => {
     }, [bool, password, currentPassword])
     const onClose = () => {
         setBool(true)
-        setPassword("")
-        setCurrentPassword("")
+        setPassword('')
+        setCurrentPassword('')
         disclosure.onClose()
     }
     const handleSubmit = () => {
@@ -43,21 +43,21 @@ const EditPasswordModal: FC<Props> = ({ disclosure }) => {
             variables: {
                 id: currentUser.id,
                 newPassword: password,
-                 currentPassword: currentPassword
-            }
+                currentPassword: currentPassword,
+            },
         }).then(r => {
-            r.data && r.data.editPassword ? editPasswordToast(sendSuccessToast) : editPasswordToast(sendErrorToast);
+            r.data && r.data.editPassword ? editPasswordToast(sendSuccessToast) : editPasswordToast(sendErrorToast)
         }).catch(() => {
             editPasswordToast(sendErrorToast)
         }).finally(() => {
             setBool(true)
-            setPassword("")
-            setCurrentPassword("")
+            setPassword('')
+            setCurrentPassword('')
             disclosure.onClose()
         })
     }
     return (
-        <Modal isOpen={disclosure.isOpen} onClose={onClose} >
+        <Modal isOpen={disclosure.isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>パスワード編集</ModalHeader>
@@ -66,20 +66,20 @@ const EditPasswordModal: FC<Props> = ({ disclosure }) => {
                     <Flex minH={36} flexDirection={'column'} justify={'space-around'}>
                         <InputWithValidation
                             type={InputType.password}
-                            placeHolder={"現在のパスワード"}
-                            fieldName={"現在のパスワード"}
+                            placeHolder={'現在のパスワード'}
+                            fieldName={'現在のパスワード'}
                             onChange={(e) => setCurrentPassword(e.target.value)}
                         />
                         <InputWithValidation
                             type={InputType.password}
-                            placeHolder={"新しいパスワード"}
-                            fieldName={"新しいパスワード"}
+                            placeHolder={'新しいパスワード'}
+                            fieldName={'新しいパスワード'}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Flex>
                 </ModalBody>
                 <ModalFooter>
-                    <Button disabled={bool} colorScheme="blue" mr={3} onClick={handleSubmit}>
+                    <Button disabled={bool} colorScheme='blue' mr={3} onClick={handleSubmit}>
                         保存
                     </Button>
                     <Button onClick={onClose}>戻る</Button>
@@ -89,4 +89,4 @@ const EditPasswordModal: FC<Props> = ({ disclosure }) => {
     )
 }
 
-export default EditPasswordModal;
+export default EditPasswordModal

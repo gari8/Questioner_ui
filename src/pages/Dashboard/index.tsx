@@ -1,12 +1,12 @@
 import { FC } from 'react'
-import {Box} from "@chakra-ui/react";
+import { Box } from '@chakra-ui/react'
 
 const Dashboard: FC = () => {
-	return (
-		<Box>
+    return (
+        <Box>
 
-		</Box>
-	)
+        </Box>
+    )
 }
 
-export default Dashboard;
+export default Dashboard

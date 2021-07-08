@@ -13,15 +13,15 @@ interface Props {
 const PhotoForm: FC<Props> = ({ question, handleSubmit, answered, isLogin }) => {
     return (
         <>
-            <BalloonModal title={"回答欄"} onSend={handleSubmit} answered={answered} isLogin={isLogin} question={question}>
-                <label htmlFor={"upload"}>
-                    <Box width={'full'} py={10} px={2} border={"dotted 2px gray"} borderRadius={"5px"}>
+            <BalloonModal title={'回答欄'} onSend={handleSubmit} answered={answered} isLogin={isLogin} question={question}>
+                <label htmlFor={'upload'}>
+                    <Box width={'full'} py={10} px={2} border={'dotted 2px gray'} borderRadius={'5px'}>
                         <Text>ドラッグ＆ドロップで画像をアップロード</Text>
                         <input
-                            id={"upload"}
+                            id={'upload'}
                             type={'file'}
                             style={{ display: 'none' }}
-                            accept={"image/*"}
+                            accept={'image/*'}
                         />
                     </Box>
                 </label>
@@ -30,4 +30,4 @@ const PhotoForm: FC<Props> = ({ question, handleSubmit, answered, isLogin }) => 
     )
 }
 
-export default PhotoForm;
+export default PhotoForm

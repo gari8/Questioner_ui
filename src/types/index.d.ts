@@ -1,3 +1,5 @@
+import { User } from '../generated/graphql'
+
 export interface DisclosureInterface {
     isOpen: boolean
     onOpen: () => void
@@ -6,4 +8,8 @@ export interface DisclosureInterface {
     isControlled: boolean
     getButtonProps: (props?: any) => any
     getDisclosureProps: (props?: any) => any
+}
+
+export interface PaginateConfigInterface {
+    [key: string]: number
 }

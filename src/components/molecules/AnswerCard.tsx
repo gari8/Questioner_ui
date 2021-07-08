@@ -39,4 +39,4 @@ const AnswerCard: FC<Props> = ({ answer, answerType }) => {
     )
 }
 
-export default AnswerCard;
+export default AnswerCard

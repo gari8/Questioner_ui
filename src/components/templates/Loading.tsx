@@ -8,11 +8,11 @@ const Loading: FC = () => {
             <Flex justify={'center'} h={'full'}>
                 <Flex flexDirection={'column'} justify={'center'} h={'full'} pb={6}>
                     <Spinner
-                        thickness="6px"
-                        speed="0.65s"
-                        emptyColor="gray.200"
-                        color="blue.500"
-                        size="xl"
+                        thickness='6px'
+                        speed='0.65s'
+                        emptyColor='gray.200'
+                        color='blue.500'
+                        size='xl'
                         mx={'auto'}
                         mb={6}
                     />
@@ -23,4 +23,4 @@ const Loading: FC = () => {
     )
 }
 
-export default Loading;
+export default Loading

@@ -16,7 +16,7 @@ const AnswerTypeIcon: FC<Props> = ({ answerType }) => {
             <Stack>
                 {
                     answerType === AnswerType.Free &&
-                    <BsTextCenter size={28} color={'black'}/>
+                    <BsTextCenter size={28} color={'black'} />
                 }
                 {
                     answerType === AnswerType.Select &&

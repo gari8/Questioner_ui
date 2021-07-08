@@ -14,9 +14,9 @@ const Layer: FC = ({ children }) => {
             bg={'rgba(256, 256, 256, 0.8)'}
             zIndex={100}
         >
-            { children }
+            {children}
         </Box>
     )
 }
 
-export default Layer;
+export default Layer

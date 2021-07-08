@@ -59,11 +59,26 @@ input LoginInput {
     password: String!
 }
 
+type UsersOutput {
+    length: Int!
+    users: [User!]!
+}
+
+type QuestionsOutput {
+    length: Int!
+    questions: [Question!]!
+}
+
+type AnswersOutput {
+    length: Int!
+    questions: [Question!]!
+}
+
 type Query {
-    users(limit: Int = 12, offset: Int = 0): [User!]!
+    users(limit: Int = 12, offset: Int = 0): UsersOutput!
     findUser(id: ID!): User!
     confirmToken: User!
-    questions(limit: Int = 12, offset: Int = 0): [Question!]!
+    questions(limit: Int = 12, offset: Int = 0): QuestionsOutput!
     findQuestion(id: ID!, userId: ID): Question!
     answers(limit: Int = 12, offset: Int = 0): [Answer!]!
     findAnswer(id: ID!): Answer!
