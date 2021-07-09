@@ -16,6 +16,7 @@ const QuestionCard: FC<Props> = ({ data }) => {
              cursor={'pointer'}
              mx={'auto'}
              _hover={{ opacity: 0.8 }}
+             maxH={'280px'}
              onClick={() => {
                  history.push('/question/' + data.id)
              }}
