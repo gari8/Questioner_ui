@@ -65,6 +65,11 @@ export const FIND_USER = gql`
             answerCount
             questionCount
             questions {
+                user {
+                    id
+                    username
+                    icon
+                }
                 id
                 title
                 content

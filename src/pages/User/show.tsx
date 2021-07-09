@@ -1,9 +1,11 @@
 import { FC} from 'react'
-import { Avatar, Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Avatar, Box, Flex, SimpleGrid, Text } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { FIND_USER } from '../../types/gqls'
 import Loading from '../../components/templates/Loading'
+import { Question } from '../../generated/graphql'
+import QuestionCard from '../../components/molecules/QuestionCard'
 
 const UserShow: FC = () => {
     // const history = useHistory()
@@ -36,19 +38,35 @@ const UserShow: FC = () => {
                                   fontWeight={'black'}>{data.findUser.username}</Text>
                         </Box>
                     </Flex>
-                    <Flex justify={'center'} py={6}>
+                    <Flex justify={'center'} py={6} px={4}>
                         <Text fontSize={'sm'} fontWeight={'light'}>{data.findUser.description}</Text>
                     </Flex>
-                    <Grid templateColumns={'repeat(2, 1fr)'}>
-                        <GridItem colSpan={2} h={20} bg={'yellow.400'}>
-                            aaaaa
-                        </GridItem>
-                        <GridItem colStart={3} colEnd={6} h={20} bg={'yellow.100'}>
-                            bbbbbb
-                        </GridItem>
-                        {/*<Box w={'100%'} bg={'yellow'} h={20}></Box>*/}
-                        {/*<Box w={'100%'} bg={'yellowgreen'}></Box>*/}
-                    </Grid>
+                    <Flex px={4} flexDirection={['column-reverse', 'row']}>
+                        <SimpleGrid w={'100%'} columns={[2, 2, 2, 3]}>
+                            {
+                                data.findUser.questions &&
+                                data.findUser.questions.map((q: Question, index: number) => {
+                                    return <QuestionCard data={q} key={q.id + index.toString()} />
+                                })
+                            }
+                        </SimpleGrid>
+                        <Box w={['100%', '50%']} mx={'auto'} mb={6}>
+                            <Box w={'90%'} mx={'auto'} my={4} p={4} borderRadius={'md'} boxShadow={'md'} bg={'gray.50'}>
+                                <Text fontSize={'sm'} my={2} fontWeight={'light'}>ニックネーム</Text>
+                                <Text fontSize={'xl'} mt={4} textAlign={'center'}
+                                      fontWeight={'black'}>{data.findUser.username}</Text>
+                                <Text fontSize={'sm'} my={2} fontWeight={'light'}>ID</Text>
+                                <Text fontSize={'xl'} mt={4} textAlign={'center'}
+                                      fontWeight={'black'}>{data.findUser.id}</Text>
+                                <Text fontSize={'sm'} my={2} fontWeight={'light'}>質問作成数</Text>
+                                <Text fontSize={'xl'} mt={4} textAlign={'center'}
+                                      fontWeight={'black'}>{data.findUser.questionCount} 個</Text>
+                                <Text fontSize={'sm'} my={2} fontWeight={'light'}>回答した数</Text>
+                                <Text fontSize={'xl'} mt={4} textAlign={'center'}
+                                      fontWeight={'black'}>{data.findUser.answerCount} 回</Text>
+                            </Box>
+                        </Box>
+                    </Flex>
                 </>
             }
         </Box>
