@@ -35,8 +35,6 @@ interface ProfileInput {
 const ProfileModal: FC<Props> = ({ disclosure }) => {
     const { currentUser, makeCurrentUser } = useContext(AuthContext)
 
-    if (!currentUser) disclosure.onClose()
-
     const initialProfileInput = {
         username: currentUser?.username!,
         icon: currentUser?.icon!,
@@ -78,10 +76,9 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
     const handleReset = () => {
         setProfileInput(initialProfileInput)
         setImageFile(new File([], ''))
+        console.log(imageFile)
         disclosure.onClose()
     }
-
-    console.log(imageFile)
 
     return (
         <Modal size={'2xl'} closeOnOverlayClick={false} isOpen={disclosure.isOpen} onClose={handleReset}>
