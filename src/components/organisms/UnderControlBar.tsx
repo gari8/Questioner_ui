@@ -13,7 +13,7 @@ const UnderControlBar: FC = () => {
                 <Tooltip hasArrow label={'検索'} bg={'black'} color={'white'}>
                     <Search2Icon mx={'auto'} borderRadius={'full'} bg={'white'} display={'block'} p={4} w={12} h={12} _hover={{ color: 'gray.500' }} />
                 </Tooltip>
-                <Tooltip hasArrow label={'dashboard'} bg={'black'} color={'white'}>
+                <Tooltip hasArrow label={'マイページ'} bg={'black'} color={'white'}>
                     <Avatar
                         display={'block'}
                         mx={'auto'}
@@ -25,7 +25,7 @@ const UnderControlBar: FC = () => {
                         cursor={'pointer'}
                     />
                 </Tooltip>
-                <Tooltip hasArrow label={'question'} bg={'black'} color={'white'}>
+                <Tooltip hasArrow label={'質問'} bg={'black'} color={'white'}>
                     <Avatar
                         display={'block'}
                         mx={'auto'}
