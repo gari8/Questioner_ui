@@ -12,7 +12,7 @@ interface Props {
 const QuestionCard: FC<Props> = ({ data }) => {
     const history = useHistory()
     return (
-        <Box borderRadius={'5px'} minH={['100px', '200px']} w={['140px', '280px']} boxShadow={'md'} m={[2, 4]} pb={['30px', '60px']} position={'relative'}
+        <Box borderRadius={'5px'} minH={['100px', '200px']} w={['140px', '280px']} boxShadow={'md'} my={[2, 4]} pb={['30px', '60px']} position={'relative'}
              cursor={'pointer'}
              mx={'auto'}
              _hover={{ opacity: 0.8 }}

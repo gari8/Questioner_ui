@@ -53,7 +53,7 @@ const QuestionIndex: FC = () => {
                 公開中の質問
             </Heading>
             <SimpleGrid
-                columns={[1, 2, 3, 4]} spacing={2}
+                columns={[2, 2, 3, 4]} spacing={2}
             >
                 {
                     data.questions &&

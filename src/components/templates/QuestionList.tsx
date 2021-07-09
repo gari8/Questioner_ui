@@ -42,7 +42,7 @@ const QuestionList: FC = () => {
 
     return (
         <>
-            <SimpleGrid columns={[2, 2, 3, 4]} spacing={2}>
+            <SimpleGrid columns={[2, 2, 3, 4]} spacing={[0, 2]}>
                 {
                     data.questions.questions &&
                     data.questions.questions.map((q: Question, index: number) => {
