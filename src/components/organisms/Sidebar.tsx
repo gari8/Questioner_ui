@@ -1,12 +1,14 @@
 import React, { FC, useContext } from 'react'
-import { Avatar, Box, Tooltip } from '@chakra-ui/react'
+import { Avatar, Box, Tooltip, useDisclosure } from '@chakra-ui/react'
 import { useHistory } from 'react-router'
 import { AuthContext } from '../../contexts/Auth'
 import { Search2Icon } from '@chakra-ui/icons'
+import SearchInputModal from './SearchInputModal'
 
 const Sidebar: FC = () => {
     const history = useHistory()
     const { currentUser } = useContext(AuthContext)
+    const disclosure = useDisclosure()
 
     return (
         <Box
@@ -18,7 +20,7 @@ const Sidebar: FC = () => {
             <Box h={12} bg={'gray.200'}> </Box>
             <Box w={'full'} px={2} pt={2}>
                 <Tooltip hasArrow label={'検索'} bg={'black'} color={'white'}>
-                    <Search2Icon mx={'auto'} display={'block'} h={8} _hover={{ color: 'gray.500' }} />
+                    <Search2Icon mx={'auto'} display={'block'} h={8} _hover={{ color: 'gray.500' }} onClick={disclosure.onOpen} />
                 </Tooltip>
                 <hr style={{ width: '90%', margin: '6px auto' }} />
                 <Tooltip hasArrow label={'マイページ'} bg={'black'} color={'white'}>
@@ -48,6 +50,7 @@ const Sidebar: FC = () => {
                 </Tooltip>
                 <hr style={{ width: '90%', margin: '6px auto' }} />
             </Box>
+            <SearchInputModal disclosure={disclosure} />
         </Box>
     )
 }

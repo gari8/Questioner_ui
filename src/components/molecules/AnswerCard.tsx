@@ -17,8 +17,8 @@ const AnswerCard: FC<Props> = ({ answer, answerType }) => {
             boxShadow={'sm'}
             _hover={{ boxShadow: 'md' }}
             transition={'all .4s'}
-            w={'50%'}
-            minW={'400px'}
+            w={['90%', '50%']}
+            minW={['10px', '400px']}
             borderRadius={'lg'}
             justify={'space-between'}
         >

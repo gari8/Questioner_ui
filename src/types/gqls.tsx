@@ -70,6 +70,7 @@ export const FIND_USER = gql`
                     username
                     icon
                 }
+                answerCount
                 id
                 title
                 content
