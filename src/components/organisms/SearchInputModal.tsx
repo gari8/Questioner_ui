@@ -1,47 +1,47 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import {
-    Box,
-    Flex,
     Input,
     Modal, ModalBody,
     ModalContent,
-    Text,
-    ModalOverlay, Switch, InputLeftElement, InputGroup,
+    ModalOverlay, InputLeftElement, InputGroup,
 } from '@chakra-ui/react'
 import { DisclosureInterface } from '../../types'
 import { SearchIcon } from '@chakra-ui/icons'
+import { useHistory } from 'react-router'
 
 interface Props {
     disclosure: DisclosureInterface
 }
 
 const SearchInputModal: FC<Props> = ({ disclosure }) => {
+    const [keyword, setKeyword] = useState("")
+    const history = useHistory()
 
     return (
         <Modal scrollBehavior={'outside'} isOpen={disclosure.isOpen} onClose={disclosure.onClose} size={'3xl'}>
             <ModalOverlay />
-            <ModalContent mx={[4, 'auto']} pb={4}>
+            <ModalContent mx={[4, 'auto']}>
                 <ModalBody>
-                    <InputGroup mb={8} mt={4} size={'lg'} color={'gray.500'}>
+                    <InputGroup my={4} size={'lg'} color={'gray.500'}>
                         <InputLeftElement
                             pointerEvents="none"
                             children={<SearchIcon color="gray.300" />}
                         />
-                        <Input type="text" placeholder="検索 キーワード" />
+                        <Input
+                            type="text" placeholder="検索 キーワード"
+                            onChange={e => {
+                                setKeyword(e.target.value)
+                            }}
+                            onKeyPress={e => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault()
+                                    if (keyword === "") return
+                                    history.push("/search?keyword="+keyword)
+                                    disclosure.onClose()
+                                }
+                            }}
+                        />
                     </InputGroup>
-                    <Flex>
-                        <Box w={'70%'}>
-                            {
-
-                            }
-                        </Box>
-                        <Box border={'1px solid'} borderColor={'gray.200'} borderRadius={'md'} w={'30%'} p={4} position={'sticky'}>
-                            <Text fontSize={'sm'} color={'gray.500'}>ユーザー</Text>
-                            <Switch ml={'20%'} my={2} size='md' defaultChecked={true} />
-                            <Text fontSize={'sm'} color={'gray.500'}>質問</Text>
-                            <Switch ml={'20%'} my={2} size='md' defaultChecked={true} />
-                        </Box>
-                    </Flex>
                 </ModalBody>
             </ModalContent>
         </Modal>

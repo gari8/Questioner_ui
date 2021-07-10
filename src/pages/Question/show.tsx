@@ -1,7 +1,7 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Avatar, Box, Flex, Heading, Text, Tooltip } from '@chakra-ui/react'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { FIND_QUESTION } from '../../types/gqls'
 import AnswerField from '../../components/templates/AnswerField'
 import { parseDate } from '../../utilities/parsers'
@@ -17,11 +17,21 @@ const QuestionShow: FC = () => {
     const { pathname } = useLocation()
     const qId = pathname.replace('/question/', '')
 
-    const { loading, error, data, refetch } = useQuery(FIND_QUESTION, {
+    const [getQuestion , { loading, error, data }] = useLazyQuery(FIND_QUESTION, {
         variables: { id: qId, userId: currentUser?.id! },
     })
 
-    if (loading) {
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) {
+            getQuestion({ variables: { id: qId, userId: currentUser?.id! } })
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, [qId, currentUser?.id, getQuestion])
+
+    if (loading || !data) {
         return <Loading />
     }
 
@@ -78,7 +88,7 @@ const QuestionShow: FC = () => {
                 </Flex>
             </Flex>
             <hr />
-            <AnswerField question={data.findQuestion} refetch={refetch} currentUser={currentUser!} />
+            <AnswerField question={data.findQuestion} getQuestion={getQuestion} currentUser={currentUser!} />
             <AnswerList answers={data.findQuestion.answers} answerers={data.findQuestion.answerers}
                         answerType={data.findQuestion.answerType} />
         </Box>

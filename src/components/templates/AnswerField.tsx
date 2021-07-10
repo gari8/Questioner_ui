@@ -4,7 +4,7 @@ import SelectForm from '../organisms/SelectForm'
 import FreeForm from '../organisms/FreeForm'
 import WordForm from '../organisms/WordForm'
 import PhotoForm from '../organisms/PhotoForm'
-import { ApolloQueryResult, useMutation } from '@apollo/client'
+import { QueryLazyOptions, useMutation } from '@apollo/client'
 import { CREATE_ANSWER } from '../../types/gqls'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
@@ -14,10 +14,10 @@ import Loading from './Loading'
 interface Props {
     question: Question
     currentUser?: User
-    refetch: <TData, TVariables>(variables?: Partial<TVariables>) => Promise<ApolloQueryResult<TData>>
+    getQuestion: (options?: (QueryLazyOptions<{id: string, userId: string}> | undefined)) => void
 }
 
-const AnswerField: FC<Props> = ({ question, currentUser, refetch }) => {
+const AnswerField: FC<Props> = ({ question, currentUser, getQuestion }) => {
     const [newAnswer, { error, loading }] = useMutation(CREATE_ANSWER)
     const [answered, setAnswered] = useState<boolean>(true)
     const { pathname } = useLocation()
@@ -26,9 +26,16 @@ const AnswerField: FC<Props> = ({ question, currentUser, refetch }) => {
 
     useEffect(() => {
         if (question) setAnswered(question.answered!)
-    }, [question, setAnswered, refetch])
+        let isMounted = true;
+        if (isMounted) {
+            getQuestion({ variables: { id: qId, userId: currentUser?.id! } })
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, [question, qId, currentUser?.id, setAnswered, getQuestion])
 
-    if (loading) {
+    if (loading || !question) {
         return <Loading />
     }
 
@@ -60,7 +67,7 @@ const AnswerField: FC<Props> = ({ question, currentUser, refetch }) => {
             if (r.data.createAnswer) {
                 setAnswered(true)
                 handleToast()
-                refetch<any, { id: string, userId: string }>({ id: qId, userId: currentUser.id })
+                getQuestion({ variables: { id: qId, userId: currentUser.id } })
             } else {
                 answerToast(sendErrorToast)
             }
@@ -80,7 +87,7 @@ const AnswerField: FC<Props> = ({ question, currentUser, refetch }) => {
             if (r.data.createAnswer) {
                 setAnswered(true)
                 handleToast()
-                refetch<any, { id: string, userId: string }>({ id: qId, userId: currentUser.id })
+                getQuestion({ variables: { id: qId, userId: currentUser.id } })
             } else {
                 answerToast(sendErrorToast)
             }

@@ -71,6 +71,11 @@ type QuestionsOutput {
 
 type AnswersOutput {
     length: Int!
+    answers: [Answer!]!
+}
+
+type SearchOutput {
+    users: [User!]!
     questions: [Question!]!
 }
 
@@ -78,10 +83,11 @@ type Query {
     users(limit: Int = 12, offset: Int = 0): UsersOutput!
     findUser(id: ID!): User!
     confirmToken: User!
-    questions(limit: Int = 12, offset: Int = 0): QuestionsOutput!
+    questions(limit: Int = 12, offset: Int = 0, userId: ID): QuestionsOutput!
     findQuestion(id: ID!, userId: ID): Question!
     answers(limit: Int = 12, offset: Int = 0): [Answer!]!
     findAnswer(id: ID!): Answer!
+    search(keyword: String!): SearchOutput!
 }
 
 input NewUser {

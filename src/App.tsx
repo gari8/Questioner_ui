@@ -3,12 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthProvider } from 'contexts/Auth'
 import { ChakraProvider } from '@chakra-ui/react'
 import Top from 'pages/Top'
-import Dashboard from 'pages/Dashboard'
 import MainFrame from './components/templates/MainFrame'
 import { theme } from './assets/theme/theme'
 import QuestionIndex from './pages/Question'
 import QuestionShow from './pages/Question/show'
 import UserShow from './pages/User/show'
+import SearchIndex from 'pages/Search'
 
 function App() {
     return (
@@ -22,7 +22,7 @@ function App() {
                                 <Route exact path='/question' render={() => <QuestionIndex />} />
                                 <Route path='/question/:id' render={() => <QuestionShow />} />
                                 <Route path='/user/:id' render={() => <UserShow />} />
-                                <Route path='/dashboard' render={() => <Dashboard />} />
+                                <Route path='/search' render={() => <SearchIndex />} />
                             </Switch>
                         </MainFrame>
                     </AuthProvider>

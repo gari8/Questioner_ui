@@ -191,3 +191,28 @@ export const CREATE_ANSWER = gql`
         createAnswer(input: $input)
     }
 `
+
+export const SEARCH_KEYWORD = gql`
+    query ($keyword: String!) {
+        search(keyword: $keyword) {
+            users {
+                id
+                icon
+                username
+                questionCount
+                answerCount
+            }
+            questions {
+                id
+                title
+                content
+                answerCount
+                user {
+                    id
+                    icon
+                    username
+                }
+            }
+        }
+    }
+`

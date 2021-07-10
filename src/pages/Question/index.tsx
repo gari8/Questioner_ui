@@ -1,7 +1,7 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import QuestionCard from '../../components/molecules/QuestionCard'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { GET_QUESTIONS } from '../../types/gqls'
 import { Question } from '../../generated/graphql'
 import Loading from '../../components/templates/Loading'
@@ -9,11 +9,21 @@ import PaginationBar from '../../components/molecules/PaginationBar'
 
 const QuestionIndex: FC = () => {
     const [config, setConfig] = useState({ limit: 12, offset: 0 })
-    const { loading, error, data, refetch } = useQuery(GET_QUESTIONS, {
+    const [getQuestion, { loading, error, data }] = useLazyQuery(GET_QUESTIONS, {
         variables: config,
     })
 
-    if (loading) {
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) {
+            getQuestion({ variables: config })
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, [config, getQuestion])
+
+    if (loading || !data) {
         return <Loading />
     }
 
@@ -28,7 +38,7 @@ const QuestionIndex: FC = () => {
             _config.offset += 12
         }
         setConfig(_config)
-        refetch({ limit: _config.limit, offset: _config.offset })
+        getQuestion({ variables: { limit: _config.limit, offset: _config.offset } })
     }
 
     const handlePrevPage = async () => {
@@ -39,7 +49,7 @@ const QuestionIndex: FC = () => {
             _config.offset -= 12
         }
         setConfig(_config)
-        refetch({ limit: _config.limit, offset: _config.offset })
+        getQuestion({ variables: { limit: _config.limit, offset: _config.offset } })
     }
 
     return (

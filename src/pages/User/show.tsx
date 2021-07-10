@@ -1,23 +1,30 @@
-import { FC} from 'react'
+import { FC, useEffect } from 'react'
 import { Avatar, Box, Flex, SimpleGrid, Text } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { FIND_USER } from '../../types/gqls'
 import Loading from '../../components/templates/Loading'
 import { Question } from '../../generated/graphql'
 import MiniQuestionCard from '../../components/molecules/MiniQuestionCard'
 
 const UserShow: FC = () => {
-    // const history = useHistory()
     const { pathname } = useLocation()
     const uId = pathname.replace('/user/', '')
-    const { loading, error, data } = useQuery(FIND_USER, {
+    const [getUser, { loading, error, data }] = useLazyQuery(FIND_USER, {
         variables: { id: uId },
     })
 
-    // const { currentUser } = useContext(AuthContext)
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) {
+            getUser({variables: { id: uId } })
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, [uId, getUser])
 
-    if (loading) {
+    if (loading || !data) {
         return <Loading />
     }
 
