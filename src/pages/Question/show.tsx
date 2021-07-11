@@ -34,7 +34,7 @@ const QuestionShow: FC = () => {
         };
     }, [qId, currentUser?.id, getQuestion])
 
-    if (loading || !data) {
+    if (loading) {
         return <Loading />
     }
 
@@ -42,7 +42,7 @@ const QuestionShow: FC = () => {
         return <Error />
     }
 
-    return (
+    return data ? (
         <Box>
             <Flex bg={'lightGreen.700'} px={[3, 14]} py={[4, 8]} justify={'space-between'}>
                 <Flex>
@@ -102,7 +102,7 @@ const QuestionShow: FC = () => {
                         answerType={data.findQuestion.answerType} />
             <EditQuestionModal disclosure={disclosure} />
         </Box>
-    )
+    ) : <></>
 }
 
 export default QuestionShow

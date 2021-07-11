@@ -24,7 +24,7 @@ const SearchIndex: FC = () => {
         };
     }, [keyword, getSearchResult])
 
-    if (loading || !data) {
+    if (loading) {
         return <Loading />
     }
 
@@ -32,9 +32,7 @@ const SearchIndex: FC = () => {
         return <Error />
     }
 
-    console.log(data, keyword)
-
-    return (
+    return data ? (
         <Box p={4}>
             <Heading
                 as={'h2'}
@@ -67,7 +65,7 @@ const SearchIndex: FC = () => {
                 </TabPanels>
             </Tabs>
         </Box>
-    )
+    ) : <></>
 }
 
 export default SearchIndex;

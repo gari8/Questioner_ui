@@ -25,7 +25,7 @@ const UserShow: FC = () => {
         };
     }, [uId, getUser])
 
-    if (loading || !data) {
+    if (loading) {
         return <Loading />
     }
 
@@ -33,7 +33,7 @@ const UserShow: FC = () => {
         return <Error />
     }
 
-    return (
+    return data ? (
         <Box>
             {
                 data.findUser &&
@@ -80,7 +80,7 @@ const UserShow: FC = () => {
                 </>
             }
         </Box>
-    )
+    ) : <></>
 }
 
 export default UserShow;

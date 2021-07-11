@@ -46,12 +46,12 @@ const UserList: FC = () => {
         getUsers({ variables: _config })
     }
 
-    if (loading || !data) return <Loading />
+    if (loading) return <Loading />
 
     if (error) return <Error />
 
 
-    return (
+    return data ? (
         <>
             <SimpleGrid columns={[1, 1, 2]} spacing={[0, 2]}>
                 {
@@ -67,7 +67,7 @@ const UserList: FC = () => {
                 <PaginationBar config={config} handlePrev={handlePrevPage} handleNext={() => handleNextPage(data.users.length)} length={data.users.length} />
             }
         </>
-    )
+    ) : <></>
 }
 
 export default UserList
