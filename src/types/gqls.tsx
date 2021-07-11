@@ -38,6 +38,7 @@ export const GET_QUESTIONS = gql`
             questions {
                 id
                 title
+                content
                 answerType
                 answerCount
                 termStart
@@ -70,6 +71,7 @@ export const FIND_USER = gql`
                     username
                     icon
                 }
+                answerType
                 answerCount
                 id
                 title

@@ -5,11 +5,12 @@ import PaginationBar from '../molecules/PaginationBar'
 import Loading from './Loading'
 import { useLazyQuery } from '@apollo/client'
 import { GET_USERS } from '../../types/gqls'
-import UserCard from '../molecules/UserCard'
 import { SimpleGrid } from '@chakra-ui/react'
+import Error from './Error'
+import MiniUserCard from '../molecules/MiniUserCard'
 
 const UserList: FC = () => {
-    const initConfig = { limit: 4, offset: 0 }
+    const initConfig = { limit: 12, offset: 0 }
     const [config, setConfig] = useState<PaginateConfigInterface>(initConfig)
     const [getUsers, { loading, error, data }] = useLazyQuery(GET_USERS, {
         variables: config,
@@ -47,16 +48,16 @@ const UserList: FC = () => {
 
     if (loading || !data) return <Loading />
 
-    if (error) return <>...error</>
+    if (error) return <Error />
 
 
     return (
         <>
-            <SimpleGrid columns={[2, 2, 3, 4]} spacing={[0, 2]}>
+            <SimpleGrid columns={[1, 1, 2]} spacing={[0, 2]}>
                 {
                     data.users &&
                     data.users.users.map((user: User, index: number) => {
-                        return <UserCard user={user} key={user.id + index.toString()} />
+                        return <MiniUserCard user={user} key={user.id + index.toString()} />
                     })
                 }
             </SimpleGrid>

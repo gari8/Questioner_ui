@@ -22,7 +22,11 @@ const SearchInputModal: FC<Props> = ({ disclosure }) => {
             <ModalOverlay />
             <ModalContent mx={[4, 'auto']}>
                 <ModalBody>
-                    <InputGroup my={4} size={'lg'} color={'gray.500'}>
+                    <InputGroup my={4} size={'lg'} color={'gray.500'} onClick={() => {
+                        if (keyword === "") return
+                        history.push("/search?keyword="+keyword)
+                        disclosure.onClose()
+                    }}>
                         <InputLeftElement
                             pointerEvents="none"
                             children={<SearchIcon color="gray.300" />}

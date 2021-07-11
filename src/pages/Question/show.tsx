@@ -10,6 +10,7 @@ import { AuthContext } from '../../contexts/Auth'
 import AnswerList from '../../components/templates/AnswerList'
 import { SettingsIcon } from '@chakra-ui/icons'
 import Loading from '../../components/templates/Loading'
+import Error from '../../components/templates/Error'
 
 const QuestionShow: FC = () => {
     const { currentUser } = useContext(AuthContext)
@@ -36,7 +37,7 @@ const QuestionShow: FC = () => {
     }
 
     if (error) {
-        return <>{error}</>
+        return <Error />
     }
 
     return (

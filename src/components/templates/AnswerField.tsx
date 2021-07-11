@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import { sendErrorToast } from '../../utilities/items'
 import Loading from './Loading'
+import Error from './Error'
 
 interface Props {
     question: Question
@@ -40,7 +41,7 @@ const AnswerField: FC<Props> = ({ question, currentUser, getQuestion }) => {
     }
 
     if (error) {
-        return <>{error}</>
+        return <Error />
     }
 
     const handleToast = () => {

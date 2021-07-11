@@ -1,15 +1,16 @@
 import { FC, useEffect, useState } from 'react'
 import PaginationBar from '../molecules/PaginationBar'
 import { Question } from '../../generated/graphql'
-import QuestionCard from '../molecules/QuestionCard'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useLazyQuery } from '@apollo/client'
 import { GET_QUESTIONS } from '../../types/gqls'
 import { PaginateConfigInterface } from '../../types'
 import Loading from './Loading'
+import Error from './Error'
+import MiniQuestionCard from '../molecules/MiniQuestionCard'
 
 const QuestionList: FC = () => {
-    const initConfig = { limit: 4, offset: 0 }
+    const initConfig = { limit: 12, offset: 0 }
     const [config, setConfig] = useState<PaginateConfigInterface>(initConfig)
     const [getQuestions, { loading, error, data }] = useLazyQuery(GET_QUESTIONS, {
         variables: config,
@@ -47,15 +48,15 @@ const QuestionList: FC = () => {
 
     if (loading || !data) return <Loading />
 
-    if (error) return <>...error</>
+    if (error) return <Error />
 
     return (
         <>
-            <SimpleGrid columns={[2, 2, 3, 4]} spacing={[0, 2]}>
+            <SimpleGrid columns={[1, 1, 2]} spacing={[0, 2]}>
                 {
                     data.questions.questions &&
                     data.questions.questions.map((q: Question, index: number) => {
-                        return <QuestionCard data={q} key={q.id + index.toString()} />
+                        return <MiniQuestionCard question={q} key={q.id + index.toString()} />
                     })
                 }
             </SimpleGrid>

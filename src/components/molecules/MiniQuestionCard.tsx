@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { Question } from '../../generated/graphql'
+import { AnswerType, Question } from '../../generated/graphql'
 import { Avatar, Flex, Text } from '@chakra-ui/react'
 import { useHistory } from 'react-router'
+import AnswerTypeIcon from '../atoms/AnswerTypeIcon'
 
 interface Props {
     question: Question
@@ -27,14 +28,19 @@ const MiniQuestionCard: FC<Props> = ({ question }) => {
             }}
         >
             <Flex justify={'center'} flexDirection={'column'}>
-                <Avatar name={question.user.username} size={'sm'}/>
+                <Avatar name={question.user.username} src={question.user.icon!} size={'sm'}/>
             </Flex>
             <Flex justify={'center'} flexDirection={'column'} mx={2} w={'100%'}>
-                <Text fontWeight={'black'} fontSize={'sm'}>{question.title}</Text>
+                <Flex>
+                    <Text fontWeight={'black'} fontSize={'sm'}>{question.title}</Text>
+                    <Flex justify={'center'} flexDirection={'column'} mx={2}>
+                        <AnswerTypeIcon answerType={question.answerType as AnswerType} size={16}/>
+                    </Flex>
+                </Flex>
                 <Text fontWeight={'light'} fontSize={'xs'}>{question.content}</Text>
             </Flex>
-            <Flex justify={'center'} flexDirection={'column'} mx={1} w={'36px'}>
-                <Text fontSize={'xs'}>A. {question.answerCount}</Text>
+            <Flex justify={'center'} flexDirection={'column'} mx={1} w={'50px'}>
+                <Text textAlign={'right'} fontSize={'xs'}>A. {question.answerCount}</Text>
             </Flex>
         </Flex>
     )

@@ -6,6 +6,7 @@ import { GET_QUESTIONS } from '../../types/gqls'
 import { Question } from '../../generated/graphql'
 import Loading from '../../components/templates/Loading'
 import PaginationBar from '../../components/molecules/PaginationBar'
+import Error from '../../components/templates/Error'
 
 const QuestionIndex: FC = () => {
     const [config, setConfig] = useState({ limit: 12, offset: 0 })
@@ -28,7 +29,7 @@ const QuestionIndex: FC = () => {
     }
 
     if (error) {
-        return <>{error}</>
+        return <Error />
     }
 
     const handleNextPage = async () => {

@@ -8,27 +8,28 @@ import { TiThLargeOutline } from 'react-icons/ti'
 
 interface Props {
     answerType: AnswerType
+    size?: number
 }
 
-const AnswerTypeIcon: FC<Props> = ({ answerType }) => {
+const AnswerTypeIcon: FC<Props> = ({ answerType, size = 28 }) => {
     return (
         <Tooltip hasArrow placement={'top'} label={`回答方法: ${answerType}`}>
             <Stack>
                 {
                     answerType === AnswerType.Free &&
-                    <BsTextCenter size={28} color={'black'} />
+                    <BsTextCenter size={size} color={'black'} />
                 }
                 {
                     answerType === AnswerType.Select &&
-                    <TiThLargeOutline size={28} />
+                    <TiThLargeOutline size={size} />
                 }
                 {
                     answerType === AnswerType.Word &&
-                    <MdShortText size={28} />
+                    <MdShortText size={size} />
                 }
                 {
                     answerType === AnswerType.Photo &&
-                    <HiOutlinePhotograph size={28} />
+                    <HiOutlinePhotograph size={size} />
                 }
             </Stack>
         </Tooltip>
