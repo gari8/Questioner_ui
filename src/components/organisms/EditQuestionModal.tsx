@@ -55,7 +55,7 @@ const EditQuestionModal: FC<Props> = ({ disclosure }) => {
         };
     }, [qId, currentUser?.id, getQuestion, disclosure.isOpen])
 
-    if (disclosure.isOpen && (loading || !data || !data.findQuestion)) {
+    if (disclosure.isOpen && (loading || !data)) {
         return <Loading />
     }
 
@@ -63,7 +63,7 @@ const EditQuestionModal: FC<Props> = ({ disclosure }) => {
         return <Error />
     }
 
-    return (
+    return data && data.findQuestion ? (
         <Modal scrollBehavior={'outside'} closeOnOverlayClick={false} size={'2xl'} isOpen={disclosure.isOpen}
                onClose={handleReset}>
             <ModalOverlay />
@@ -75,7 +75,7 @@ const EditQuestionModal: FC<Props> = ({ disclosure }) => {
                         <TabList>
                             <Tab _focus={{ outline: 0 }}>本文</Tab>
                             <Tab _focus={{ outline: 0 }}>公開設定</Tab>
-                            <Tab _focus={{ outline: 0 }} display={data.findQuestion.answerType === AnswerType.Select ? 'block' : 'none'}>選択肢</Tab>
+                            <Tab _focus={{ outline: 0 }} display={data.findQuestion && data.findQuestion.answerType === AnswerType.Select ? 'block' : 'none'}>選択肢</Tab>
                         </TabList>
                         <TabPanels>
                             <TabPanel>
@@ -112,14 +112,17 @@ const EditQuestionModal: FC<Props> = ({ disclosure }) => {
                                     </Flex>
                                 </Box>
                             </TabPanel>
-                            <TabPanel>
-                                {
-                                    data.findQuestion.choices &&
-                                    data.findQuestion.choices.map((c: Choice, index: number) => {
-                                        return <p key={c.id.toString() + index.toString()}>{c.content}</p>
-                                    })
-                                }
-                            </TabPanel>
+                            {
+                                data.findQuestion.answerType === AnswerType.Select &&
+                                <TabPanel>
+                                    {
+                                        data.findQuestion.choices &&
+                                        data.findQuestion.choices.map((c: Choice, index: number) => {
+                                            return <p key={c.id.toString() + index.toString()}>{c.content}</p>
+                                        })
+                                    }
+                                </TabPanel>
+                            }
                         </TabPanels>
                     </Tabs>
                 </ModalBody>
@@ -131,7 +134,7 @@ const EditQuestionModal: FC<Props> = ({ disclosure }) => {
                 </ModalFooter>
             </ModalContent>
         </Modal>
-    )
+    ) : <></>
 }
 
 export default EditQuestionModal;
