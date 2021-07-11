@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Avatar, Box, Flex, Heading, Text, Tooltip } from '@chakra-ui/react'
+import { Avatar, Box, Flex, Heading, IconButton, Text, Tooltip, useDisclosure } from '@chakra-ui/react'
 import { useLazyQuery } from '@apollo/client'
 import { FIND_QUESTION } from '../../types/gqls'
 import AnswerField from '../../components/templates/AnswerField'
@@ -8,14 +8,16 @@ import { parseDate } from '../../utilities/parsers'
 import { useHistory } from 'react-router'
 import { AuthContext } from '../../contexts/Auth'
 import AnswerList from '../../components/templates/AnswerList'
-import { SettingsIcon } from '@chakra-ui/icons'
 import Loading from '../../components/templates/Loading'
 import Error from '../../components/templates/Error'
+import { FiEdit } from 'react-icons/fi'
+import EditQuestionModal from '../../components/organisms/EditQuestionModal'
 
 const QuestionShow: FC = () => {
     const { currentUser } = useContext(AuthContext)
     const history = useHistory()
     const { pathname } = useLocation()
+    const disclosure = useDisclosure()
     const qId = pathname.replace('/question/', '')
 
     const [getQuestion , { loading, error, data }] = useLazyQuery(FIND_QUESTION, {
@@ -52,15 +54,21 @@ const QuestionShow: FC = () => {
                             currentUser != null &&
                             currentUser.id === data.findQuestion.user.id &&
                             <Tooltip hasArrow label={'設定'} placement={'top'}>
-                                <SettingsIcon
+                                <IconButton
+                                    aria-label={'edit question'}
+                                    icon={<FiEdit />}
                                     fontSize={'2xl'}
-                                    color={'gray.300'}
-                                    mx={4}
+                                    color={'gray.50'}
+                                    mx={2}
                                     fontWeight={'bold'}
                                     cursor={'pointer'}
-                                    _hover={{ textDecoration: 'underline', color: 'gray.100' }}
+                                    bg={'inherit'}
+                                    _hover={{ color: 'gray.200' }}
+                                    _focus={{ outline: 0 }}
                                     onClick={() => {
-
+                                        if (currentUser.id === data.findQuestion.user.id) {
+                                            disclosure.onOpen()
+                                        }
                                     }}
                                 />
                             </Tooltip>
@@ -92,6 +100,7 @@ const QuestionShow: FC = () => {
             <AnswerField question={data.findQuestion} getQuestion={getQuestion} currentUser={currentUser!} />
             <AnswerList answers={data.findQuestion.answers} answerers={data.findQuestion.answerers}
                         answerType={data.findQuestion.answerType} />
+            <EditQuestionModal disclosure={disclosure} />
         </Box>
     )
 }

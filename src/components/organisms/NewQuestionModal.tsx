@@ -1,5 +1,5 @@
 import React, { FC, useContext, useState } from 'react'
-import { DisclosureInterface } from '../../types'
+import { DisclosureInterface, QuestionInterface } from '../../types'
 import {
     Box,
     Button,
@@ -38,17 +38,11 @@ interface Props {
     disclosure: DisclosureInterface
 }
 
-const answerType = {
+export const answerType = {
     Free: AnswerType.Free,
     Word: AnswerType.Word,
     Select: AnswerType.Select,
     Photo: AnswerType.Photo,
-}
-
-interface QuestionInterface {
-    title: string
-    content: string
-    textAfterAnswered: string
 }
 
 const NewQuestionModal: FC<Props> = ({ disclosure }) => {

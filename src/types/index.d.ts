@@ -1,4 +1,4 @@
-import { User } from '../generated/graphql'
+import { AnswerType } from '../generated/graphql'
 
 export interface DisclosureInterface {
     isOpen: boolean
@@ -12,4 +12,10 @@ export interface DisclosureInterface {
 
 export interface PaginateConfigInterface {
     [key: string]: number
+}
+
+export interface QuestionInterface {
+    title: string
+    content: string
+    textAfterAnswered: string
 }
