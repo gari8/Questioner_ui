@@ -50,14 +50,16 @@ const UserShow: FC = () => {
                         <Text fontSize={'sm'} fontWeight={'light'}>{data.findUser.description}</Text>
                     </Flex>
                     <Flex px={4} flexDirection={['column-reverse', 'column-reverse', 'row']}>
-                        <SimpleGrid w={['100%', '100%', '90%']} columns={[1, 1, 2]} mx={'auto'} spacingY={'auto'}>
-                            {
-                                data.findUser.questions &&
-                                data.findUser.questions.map((q: Question, index: number) => {
-                                    return <MiniQuestionCard question={q} key={q.id + index.toString()} />
-                                })
-                            }
-                        </SimpleGrid>
+                        <Box w={['100%', '100%', '90%']}>
+                            <SimpleGrid w={'100%'} columns={[1, 1, 2]} mx={'auto'} spacingY={'auto'}>
+                                {
+                                    data.findUser.questions &&
+                                    data.findUser.questions.map((q: Question, index: number) => {
+                                        return <MiniQuestionCard question={q} key={q.id + index.toString()} />
+                                    })
+                                }
+                            </SimpleGrid>
+                        </Box>
                         <Box w={['100%', '100%', '50%']} mx={'auto'} mb={6}>
                             <Box w={['100%', '90%']} mx={'auto'} my={4} p={4} borderRadius={'md'} boxShadow={'md'} bg={'gray.50'}>
                                 <Text fontSize={'sm'} my={2} fontWeight={'light'}>ニックネーム</Text>
