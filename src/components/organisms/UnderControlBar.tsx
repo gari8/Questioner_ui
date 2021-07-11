@@ -1,9 +1,10 @@
 import React, { FC, useContext } from 'react'
-import { Avatar, Flex, useDisclosure } from '@chakra-ui/react'
+import { Avatar, Flex, IconButton, useDisclosure } from '@chakra-ui/react'
 import { AuthContext } from '../../contexts/Auth'
 import { useHistory } from 'react-router'
 import { Search2Icon } from '@chakra-ui/icons'
 import SearchInputModal from './SearchInputModal'
+import { ImHome3 } from 'react-icons/im'
 
 const UnderControlBar: FC = () => {
     const disclosure = useDisclosure()
@@ -23,15 +24,9 @@ const UnderControlBar: FC = () => {
                     _hover={{ opacity: 0.8 }}
                     cursor={'pointer'}
                 />
-                <Avatar
-                    display={'block'}
-                    mx={'auto'}
-                    size={'md'}
-                    name={'Question'}
-                    onClick={() => history.push('/question')}
-                    _hover={{ opacity: 0.8 }}
-                    cursor={'pointer'}
-                    bg={'blue.500'}
+                <IconButton
+                    icon={<ImHome3 />} mx={'auto'} display={'block'} p={4} w={12} h={12} borderRadius={'full'} aria-label={'top'} bg={'white'} _focus={{ outline: 0 }}
+                    _hover={{ color: 'gray.500' }} onClick={() => history.push('/')}
                 />
             </Flex>
             <SearchInputModal disclosure={disclosure} />
