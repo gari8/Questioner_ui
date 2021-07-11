@@ -64,7 +64,7 @@ const SignupModal: FC<Props> = ({ disclosure }) => {
             <ModalOverlay />
             <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>サインアップ</ModalHeader>
-                <ModalCloseButton />
+                <ModalCloseButton _focus={{ outline: 0 }}/>
                 <ModalBody pb={6}>
                     <InputWithValidation type={InputType.name} fieldName={'お名前'}
                                          onChange={(e) => setUsername(e.target.value)} />

@@ -85,7 +85,7 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
             <ModalOverlay />
             <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>プロフィール</ModalHeader>
-                <ModalCloseButton />
+                <ModalCloseButton _focus={{ outline: 0 }}/>
                 <ModalBody pb={6}>
                     <UploadImg src={initialProfileInput.icon} alt={initialProfileInput.username}
                                setFile={setImageFile} />

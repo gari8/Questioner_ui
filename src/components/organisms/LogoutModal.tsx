@@ -30,7 +30,7 @@ const LogoutModal: FC<Props> = ({ disclosure }) => {
             <ModalOverlay />
             <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>ログアウトしますか？</ModalHeader>
-                <ModalCloseButton />
+                <ModalCloseButton _focus={{ outline: 0 }}/>
                 <ModalFooter>
                     <Button colorScheme='blue' mr={3} onClick={handleLogout}>
                         ログアウト

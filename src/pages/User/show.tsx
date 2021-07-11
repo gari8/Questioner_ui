@@ -51,7 +51,7 @@ const UserShow: FC = () => {
                     </Flex>
                     <Flex px={4} flexDirection={['column-reverse', 'column-reverse', 'row']}>
                         <Box w={['100%', '100%', '90%']}>
-                            <SimpleGrid w={'100%'} columns={[1, 1, 2]} mx={'auto'} spacingY={'auto'}>
+                            <SimpleGrid w={'100%'} columns={1} mx={'auto'} spacingY={'auto'}>
                                 {
                                     data.findUser.questions &&
                                     data.findUser.questions.map((q: Question, index: number) => {
@@ -60,7 +60,7 @@ const UserShow: FC = () => {
                                 }
                             </SimpleGrid>
                         </Box>
-                        <Box w={['100%', '100%', '50%']} mx={'auto'} mb={6}>
+                        <Box w={['100%', '100%', '60%']} mx={'auto'} mb={6}>
                             <Box w={['100%', '90%']} mx={'auto'} my={4} p={4} borderRadius={'md'} boxShadow={'md'} bg={'gray.50'}>
                                 <Text fontSize={'sm'} my={2} fontWeight={'light'}>ニックネーム</Text>
                                 <Text fontSize={['md', 'xl']} mt={4} textAlign={'center'}

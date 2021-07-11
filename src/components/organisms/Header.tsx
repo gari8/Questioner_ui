@@ -30,8 +30,11 @@ const Header: FC = () => {
             as={'header'}
             width={'full'}
             shadow={'sm'}
+            position={['static', 'fixed']}
+            zIndex={10}
+            bg={'white'}
             py={2}
-            px={[2, 8]}
+            px={2}
         >
             <Flex
                 onClick={() => history.push('/')}
@@ -46,6 +49,7 @@ const Header: FC = () => {
             <Menu>
                 <Flex flexDirection={'column'} justify={'center'}>
                     <MenuButton
+                        mx={2}
                         as={IconButton}
                         aria-label='Options'
                         icon={<HamburgerIcon />}
@@ -57,6 +61,7 @@ const Header: FC = () => {
                     currentUser ?
                         <MenuList>
                             <MenuItem
+                                _focus={{ outline: 0 }}
                                 icon={<AddIcon />}
                                 onClick={() => {
                                     setModalType(ModalType.NewQuestion)
@@ -66,6 +71,7 @@ const Header: FC = () => {
                                 質問の作成
                             </MenuItem>
                             <MenuItem
+                                _focus={{ outline: 0 }}
                                 icon={<AtSignIcon />}
                                 onClick={() => {
                                     setModalType(ModalType.Profile)
@@ -75,6 +81,7 @@ const Header: FC = () => {
                                 プロフィール編集
                             </MenuItem>
                             <MenuItem
+                                _focus={{ outline: 0 }}
                                 icon={<FaKey />}
                                 onClick={() => {
                                     setModalType(ModalType.EditPassword)
@@ -84,6 +91,7 @@ const Header: FC = () => {
                                 パスワード編集
                             </MenuItem>
                             <MenuItem
+                                _focus={{ outline: 0 }}
                                 icon={<Icon as={HiLogout} />}
                                 onClick={() => {
                                     setModalType(ModalType.Logout)
@@ -95,6 +103,7 @@ const Header: FC = () => {
                         </MenuList> :
                         <MenuList>
                             <MenuItem
+                                _focus={{ outline: 0 }}
                                 icon={<Icon as={HiLogin} />}
                                 onClick={() => {
                                     setModalType(ModalType.Login)
@@ -104,6 +113,7 @@ const Header: FC = () => {
                                 ログイン
                             </MenuItem>
                             <MenuItem
+                                _focus={{ outline: 0 }}
                                 icon={<Icon as={HiUserAdd} />}
                                 onClick={() => {
                                     setModalType(ModalType.Signup)

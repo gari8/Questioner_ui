@@ -135,7 +135,7 @@ const NewQuestionModal: FC<Props> = ({ disclosure }) => {
             <ModalOverlay />
             <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>質問の作成</ModalHeader>
-                <ModalCloseButton />
+                <ModalCloseButton _focus={{ outline: 0 }}/>
                 <ModalBody pb={6}>
                     <Text mx={3} mt={2}>タイトル</Text>
                     <Input type={'text'} w={2 / 3} mx={2} my={1} onChange={(e) => {

@@ -61,7 +61,7 @@ const EditPasswordModal: FC<Props> = ({ disclosure }) => {
             <ModalOverlay />
             <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>パスワード編集</ModalHeader>
-                <ModalCloseButton />
+                <ModalCloseButton _focus={{ outline: 0 }}/>
                 <ModalBody pb={6}>
                     <Flex minH={36} flexDirection={'column'} justify={'space-around'}>
                         <InputWithValidation

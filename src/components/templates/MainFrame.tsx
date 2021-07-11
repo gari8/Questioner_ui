@@ -16,10 +16,12 @@ const MainFrame: FC = ({ children }) => {
             overflow={'hidden'}
         >
             <Header />
+            <Sidebar />
             <Flex
                 w={'full'}
+                pt={[0, 16]}
+                pl={[0, 12]}
             >
-                <Sidebar />
                 <Box
                     w={'full'}
                 >

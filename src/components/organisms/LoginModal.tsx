@@ -53,7 +53,7 @@ const LoginModal: FC<Props> = ({ disclosure }) => {
             <ModalOverlay />
             <ModalContent mx={[4, 'auto']}>
                 <ModalHeader>ログイン</ModalHeader>
-                <ModalCloseButton />
+                <ModalCloseButton _focus={{ outline: 0 }}/>
                 <ModalBody pb={6}>
                     <Flex minH={36} flexDirection={'column'} justify={'space-around'}>
                         <InputWithValidation

@@ -12,6 +12,10 @@ const Sidebar: FC = () => {
 
     return (
         <Box
+            position={'fixed'}
+            top={16}
+            bg={'white'}
+            zIndex={10}
             minHeight={'calc(100vh - 216px)'}
             borderRight={'1px'}
             borderColor={'gray.200'}
