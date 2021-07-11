@@ -55,7 +55,7 @@ const EditQuestionModal: FC<Props> = ({ disclosure }) => {
         };
     }, [qId, currentUser?.id, getQuestion, disclosure.isOpen])
 
-    if (disclosure.isOpen && (loading || !data)) {
+    if (disclosure.isOpen && (loading || !data || !data.findQuestion)) {
         return <Loading />
     }
 
