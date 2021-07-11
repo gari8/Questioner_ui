@@ -34,6 +34,10 @@ const QuestionShow: FC = () => {
         };
     }, [qId, currentUser?.id, getQuestion])
 
+    const handleUpdate = () => {
+        getQuestion({ variables: { id: qId, userId: currentUser?.id! } })
+    }
+
     if (loading) {
         return <Loading />
     }
@@ -100,7 +104,7 @@ const QuestionShow: FC = () => {
             <AnswerField question={data.findQuestion} getQuestion={getQuestion} currentUser={currentUser!} />
             <AnswerList answers={data.findQuestion.answers} answerers={data.findQuestion.answerers}
                         answerType={data.findQuestion.answerType} />
-            <EditQuestionModal disclosure={disclosure} />
+            <EditQuestionModal disclosure={disclosure} update={handleUpdate} question={data.findQuestion} />
         </Box>
     ) : <></>
 }

@@ -90,6 +90,8 @@ export const FIND_QUESTION = gql`
             answerType
             content
             answered
+            enabled
+            published
             answerCount
             user {
                 username
