@@ -5,26 +5,28 @@ import { Heading, Box, TabList, Tab, TabPanels, TabPanel, Tabs } from '@chakra-u
 
 const Top: FC = () => {
     return (
-        <Box p={4}>
+        <Box p={[0, 4]}>
             <Tabs>
                 <TabList>
                     <Tab _focus={{ outline: '0' }} borderRadius={'5px 5px 0 0'}>質問</Tab>
                     <Tab _focus={{ outline: '0' }} borderRadius={'5px 5px 0 0'}>アカウント</Tab>
                 </TabList>
                 <TabPanels>
-                    <TabPanel>
+                    <TabPanel px={[0, 2]}>
                         <Heading
                             as={'h2'}
                             size={'md'}
+                            p={2}
                         >
                             新着質問
                         </Heading>
                         <QuestionList />
                     </TabPanel>
-                    <TabPanel>
+                    <TabPanel px={[0, 2]}>
                         <Heading
                             as={'h2'}
                             size={'md'}
+                            p={2}
                         >
                             最新アカウント
                         </Heading>

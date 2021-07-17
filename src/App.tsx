@@ -5,7 +5,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import Top from 'pages/Top'
 import MainFrame from './components/templates/MainFrame'
 import { theme } from './assets/theme/theme'
-import QuestionIndex from './pages/Question'
 import QuestionShow from './pages/Question/show'
 import UserShow from './pages/User/show'
 import SearchIndex from 'pages/Search'
@@ -19,7 +18,6 @@ function App() {
                         <MainFrame>
                             <Switch>
                                 <Route exact path='/' render={() => <Top />} />
-                                <Route exact path='/question' render={() => <QuestionIndex />} />
                                 <Route path='/question/:id' render={() => <QuestionShow />} />
                                 <Route path='/user/:id' render={() => <UserShow />} />
                                 <Route path='/search' render={() => <SearchIndex />} />

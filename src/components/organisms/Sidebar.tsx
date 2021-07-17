@@ -17,6 +17,7 @@ const Sidebar: FC = () => {
             top={16}
             bg={'white'}
             zIndex={10}
+            h={'full'}
             minHeight={'calc(100vh - 216px)'}
             borderRight={'1px'}
             borderColor={'gray.200'}

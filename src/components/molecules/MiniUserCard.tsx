@@ -11,8 +11,8 @@ const MiniUserCard: FC<Props> = ({ user }) => {
     const history = useHistory()
     return (
         <Flex
-            borderRadius={'md'}
-            boxShadow={'md'}
+            borderRadius={['none','md']}
+            boxShadow={['none','md']}
             bg={'gray.50'}
             mx={'auto'}
             w={['100%', '90%', '90%']}
