@@ -46,7 +46,7 @@ const SignupModal: FC<Props> = ({ disclosure }) => {
             login({ variables: { email: email, password: password } }).then(r => {
                 const token = r.data.createSession
                 makeCurrentUser(token)
-            }).catch(_ => {
+            }).catch(() => {
                 signupToast(sendErrorToast)
             }).finally(() => history.push('/dashboard'))
         }).catch(() => {

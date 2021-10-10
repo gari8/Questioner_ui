@@ -62,7 +62,7 @@ const ProfileModal: FC<Props> = ({ disclosure }) => {
         }
         editUser({
             variables: { input: payload },
-        }).then(_ => {
+        }).then(() => {
             const token = localStorage.getItem(tokenName)
             if (token) {
                 makeCurrentUser(token)

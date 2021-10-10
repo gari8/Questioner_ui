@@ -9,6 +9,7 @@ interface Props {
 }
 
 const AnswerCard: FC<Props> = ({ answer, answerType }) => {
+    console.log(answerType)
     return (
         <Flex
             mx={'auto'}

@@ -12,7 +12,7 @@ interface IAuthContext {
 
 const AuthContext = createContext<IAuthContext>({
     currentUser: null, resetCurrentUser: () => {
-    }, makeCurrentUser: (token: string) => {
+    }, makeCurrentUser: () => {
     },
 })
 
