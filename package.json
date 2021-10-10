@@ -1,5 +1,5 @@
 {
-  "name": "faves-for-front",
+  "name": "questioner_ui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -46,8 +46,12 @@
     ]
   },
   "lint-staged": {
-    "*.{ts, tsx}": [
+    "**/*.{ts, tsx}": [
+      "eslint --fix",
       "prettier --write"
+    ],
+    "**/*.{css,less,sass,scss}": [
+      "stylelint --fix"
     ]
   },
   "prettier": {
@@ -84,6 +88,9 @@
     "lint-staged": "^11.0.0",
     "node-sass": "^6.0.0",
     "prettier": "^2.3.0",
+    "styled-components": "^5.3.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
